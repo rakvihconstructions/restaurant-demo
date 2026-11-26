@@ -1,11 +1,12 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { Download, FileText, Printer, RotateCcw, XCircle } from "lucide-react";
 import { toast } from "sonner";
 import { DataTable, PageHeader, Panel, SearchBox, type Column } from "@/components/admin/kit";
 import { Badge, Button, DietMark, Field, Segmented, Select, Sheet, StatusPill, Tabs, Textarea } from "@/components/ui";
-import { orders, type Order } from "@/lib/data";
+import { orders, restaurant, type Order } from "@/lib/data";
+import { downloadInvoicePdf } from "@/lib/pdf-documents";
 import { cn, inr } from "@/lib/utils";
 
 const channels = ["All", "Dine-in", "QR", "Takeaway", "Delivery", "Online"] as const;
@@ -120,36 +121,87 @@ export default function OrdersPage() {
 
 function OrderSheet({ order, onClose }: { order: Order | null; onClose: () => void }) {
   const [mode, setMode] = useState<"view" | "cancel" | "refund">("view");
-  const close = () => { setMode("view"); onClose(); };
+  const [printing, setPrinting] = useState(false);
+  const close = () => { setMode("view"); setPrinting(false); onClose(); };
+  useEffect(() => {
+    if (!printing) return;
+    const clearPrinting = () => setPrinting(false);
+    window.addEventListener("afterprint", clearPrinting);
+    return () => window.removeEventListener("afterprint", clearPrinting);
+  }, [printing]);
   if (!order) return <Sheet open={false} onClose={close}>{null}</Sheet>;
   const steps = ["new", "preparing", "ready", order.channel === "Delivery" ? "out" : "served", "completed"];
   const at = Math.max(0, steps.indexOf(order.status === "accepted" ? "new" : order.status));
+  const invoiceNumber = `INV/2026-27/${order.id.replace("NL-", "")}`;
+  const date = `Today · ${order.time}`;
+  const delivery = order.channel === "Delivery" ? 49 : 0;
+  const printOrder = () => {
+    setPrinting(true);
+    window.setTimeout(() => window.print(), 100);
+  };
+  const downloadInvoice = () => {
+    try {
+      downloadInvoicePdf({
+        restaurant: {
+          name: restaurant.name,
+          city: "Bengaluru",
+          gstin: restaurant.gstin,
+          address: restaurant.address,
+          phone: restaurant.phone,
+          email: restaurant.email,
+        },
+        invoiceNumber,
+        date,
+        customer: order.customer,
+        phone: order.phone,
+        channel: order.channel,
+        table: order.table,
+        payment: order.payment,
+        lines: order.lines.map(({ item, qty }) => ({
+          name: item.name,
+          qty,
+          unitPrice: item.price,
+          amount: item.price * qty,
+        })),
+        subtotal: order.subtotal,
+        discount: order.discount,
+        tax: order.tax,
+        delivery,
+        total: order.total,
+      });
+      toast.success("Invoice PDF downloaded", { description: invoiceNumber });
+    } catch (error) {
+      console.error("Order invoice PDF generation failed", error);
+      toast.error("Could not download the invoice PDF.");
+    }
+  };
 
   return (
-    <Sheet
-      open={!!order}
-      onClose={close}
-      width="max-w-lg"
-      title={<span className="font-mono text-[20px]">{order.id}</span>}
-      subtitle={`${order.channel} · ${order.time} · taken by ${order.staff}`}
-      footer={
-        mode === "view" ? (
-          <div className="grid grid-cols-2 gap-2 sm:grid-cols-4">
-            <Button variant="outline" size="sm" onClick={() => toast.success("Sent to receipt printer", { description: "Epson TM-T82X · Counter" })}><Printer className="size-3.5" /> Print</Button>
-            <Button variant="outline" size="sm" onClick={() => toast.success("Invoice PDF downloaded", { description: `INV/2026-27/${order.id.slice(3)}` })}><FileText className="size-3.5" /> Invoice</Button>
-            <Button variant="outline" size="sm" onClick={() => setMode("refund")} disabled={order.payment === "Unpaid"}><RotateCcw className="size-3.5" /> Refund</Button>
-            <Button variant="outline" size="sm" className="text-chili" onClick={() => setMode("cancel")} disabled={order.status === "cancelled"}><XCircle className="size-3.5" /> Cancel</Button>
-          </div>
-        ) : (
-          <div className="flex gap-2">
-            <Button variant="ghost" onClick={() => setMode("view")}>Back</Button>
-            <Button variant="danger" className="flex-1" onClick={() => { toast.success(mode === "cancel" ? "Cancellation sent for approval" : "Refund sent for approval", { description: "Ananya R. (Branch Manager) has been notified · logged in audit trail" }); close(); }}>
-              Request {mode === "cancel" ? "cancellation" : "refund"}
-            </Button>
-          </div>
-        )
-      }
-    >
+    <>
+      <Sheet
+        open={!!order}
+        onClose={close}
+        width="max-w-lg"
+        title={<span className="font-mono text-[20px]">{order.id}</span>}
+        subtitle={`${order.channel} · ${order.time} · taken by ${order.staff}`}
+        footer={
+          mode === "view" ? (
+            <div className="grid grid-cols-2 gap-2 sm:grid-cols-4">
+              <Button variant="outline" size="sm" onClick={printOrder}><Printer className="size-3.5" /> Print</Button>
+              <Button variant="outline" size="sm" onClick={downloadInvoice}><FileText className="size-3.5" /> Invoice</Button>
+              <Button variant="outline" size="sm" onClick={() => setMode("refund")} disabled={order.payment === "Unpaid"}><RotateCcw className="size-3.5" /> Refund</Button>
+              <Button variant="outline" size="sm" className="text-chili" onClick={() => setMode("cancel")} disabled={order.status === "cancelled"}><XCircle className="size-3.5" /> Cancel</Button>
+            </div>
+          ) : (
+            <div className="flex gap-2">
+              <Button variant="ghost" onClick={() => setMode("view")}>Back</Button>
+              <Button variant="danger" className="flex-1" onClick={() => { toast.success(mode === "cancel" ? "Cancellation sent for approval" : "Refund sent for approval", { description: "Ananya R. (Branch Manager) has been notified · logged in audit trail" }); close(); }}>
+                Request {mode === "cancel" ? "cancellation" : "refund"}
+              </Button>
+            </div>
+          )
+        }
+      >
       {mode === "view" ? (
         <div className="space-y-6 p-5 sm:p-6">
           <div className="flex items-center justify-between">
@@ -213,6 +265,33 @@ function OrderSheet({ order, onClose }: { order: Order | null; onClose: () => vo
           <Field label="Note"><Textarea placeholder="Visible to the approver and in the audit trail" /></Field>
         </div>
       )}
-    </Sheet>
+      </Sheet>
+      {printing && (
+        <article className="print-document order-print-document">
+          <h1>{restaurant.name}</h1>
+          <p>{restaurant.address}</p>
+          <p>GSTIN {restaurant.gstin} · {restaurant.phone}</p>
+          <hr />
+          <h2>Order receipt · {order.id}</h2>
+          <p>{date} · {order.channel}{order.table ? ` · Table ${order.table}` : ""}</p>
+          <p>Guest: {order.customer} · {order.phone}</p>
+          <hr />
+          {order.lines.map(({ item, qty }) => (
+            <p key={item.id} className="flex justify-between gap-4">
+              <span>{qty} × {item.name}</span><span>{inr(item.price * qty)}</span>
+            </p>
+          ))}
+          <hr />
+          <p className="flex justify-between"><span>Subtotal</span><span>{inr(order.subtotal)}</span></p>
+          {order.discount > 0 && <p className="flex justify-between"><span>Discount</span><span>- {inr(order.discount)}</span></p>}
+          <p className="flex justify-between"><span>CGST + SGST</span><span>{inr(order.tax)}</span></p>
+          {delivery > 0 && <p className="flex justify-between"><span>Delivery</span><span>{inr(delivery)}</span></p>}
+          <p className="flex justify-between font-bold"><span>Total</span><span>{inr(order.total)}</span></p>
+          <p>Payment: {order.payment}</p>
+          <hr />
+          <p className="text-center">Thank you for dining with us.</p>
+        </article>
+      )}
+    </>
   );
 }

@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { QRCodeSVG } from "qrcode.react";
 import {
   ArrowLeft,
@@ -33,6 +33,7 @@ import { toast } from "sonner";
 import { Button, DietMark, Select, Sheet } from "@/components/ui";
 import { customers as seedCustomers, tables } from "@/lib/data";
 import { categories, menu, type MenuItem } from "@/lib/menu";
+import { downloadInvoicePdf, downloadReceiptPdf } from "@/lib/pdf-documents";
 import { useHydrated, useStore } from "@/lib/store";
 import { cn, inr } from "@/lib/utils";
 
@@ -40,7 +41,7 @@ type Line = { id: string; item: MenuItem; qty: number; variant?: string; extra: 
 type Held = { id: string; label: string; lines: Line[] };
 
 export default function POS() {
-  const [mode, setMode] = useState<"Dine-in" | "Takeaway" | "Delivery">("Dine-in");
+  const [mode, setMode] = useState<"Dine-in" | "Takeaway">("Dine-in");
   const [table, setTable] = useState("07");
   const [cat, setCat] = useState("all");
   const [q, setQ] = useState("");
@@ -82,7 +83,7 @@ export default function POS() {
   const subtotal = lines.reduce((s, l) => s + (l.item.price + l.extra) * l.qty, 0);
   const disc = Math.round((subtotal * discount) / 100);
   const cgst = Math.round((subtotal - disc) * 0.025);
-  const total = subtotal - disc + cgst * 2 + (mode === "Delivery" ? 49 : 0);
+  const total = subtotal - disc + cgst * 2;
   const count = lines.reduce((s, l) => s + l.qty, 0);
 
   const add = (item: MenuItem, variant?: { label: string; price: number }) => {
@@ -115,6 +116,7 @@ export default function POS() {
     toast.success(`KOT sent · ${o.id}`, {
       description: `${count} items → ${Array.from(new Set(lines.map((l) => l.item.station))).join(", ")}`,
     });
+    return o.id;
   };
 
   const hold = () => {
@@ -137,8 +139,8 @@ export default function POS() {
           </span>
         </div>
 
-        <div className="grid grid-cols-3 gap-1 rounded-xl bg-[#f1f3f9] p-1">
-          {(["Dine-in", "Takeaway", "Delivery"] as const).map((m) => (
+        <div className="grid grid-cols-2 gap-1 rounded-xl bg-[#f1f3f9] p-1">
+          {(["Dine-in", "Takeaway"] as const).map((m) => (
             <button
               key={m}
               onClick={() => setMode(m)}
@@ -163,7 +165,7 @@ export default function POS() {
             </Select>
           ) : (
             <Select className="h-9 rounded-xl border-[#e6eaf2] text-[12.5px]">
-              <option>{mode === "Delivery" ? "Zone A · ₹49" : "Pickup · 20 min"}</option>
+              <option>Pickup · 20 min</option>
             </Select>
           )}
           <button
@@ -294,12 +296,6 @@ export default function POS() {
             <dt>Tax (GST 5%)</dt>
             <dd className="font-semibold text-[#0f172a] tnum">{inr(cgst * 2)}</dd>
           </div>
-          {mode === "Delivery" && (
-            <div className="flex justify-between">
-              <dt>Delivery</dt>
-              <dd className="font-semibold text-[#0f172a] tnum">{inr(49)}</dd>
-            </div>
-          )}
         </dl>
 
         <div className="mt-3 flex items-baseline justify-between border-t border-[#edf0f7] pt-3">
@@ -686,9 +682,10 @@ export default function POS() {
         tenantGstin={tenantGstin}
         tenantSlug={tenantSlug}
         onDone={() => {
-          sendKot();
+          const orderId = sendKot();
           setLines([]);
           setDiscount(0);
+          return orderId;
         }}
       />
     </div>
@@ -726,18 +723,21 @@ function PaySheet({
   tenantCity: string;
   tenantGstin: string;
   tenantSlug: string;
-  onDone: () => void;
+  onDone: () => string | undefined;
 }) {
   const [method, setMethod] = useState<"cash" | "upi" | "card" | "split">("upi");
   const [tendered, setTendered] = useState("");
   const [done, setDone] = useState(false);
   const [snapshot, setSnapshot] = useState<{ lines: Line[]; total: number; subtotal: number; disc: number; cgst: number } | null>(null);
+  const [printMode, setPrintMode] = useState<"receipt" | null>(null);
+  const [invoiceNumber, setInvoiceNumber] = useState("INV/2026-27/IND/018342");
   const t = Number(tendered || 0);
 
   const complete = () => {
     setSnapshot({ lines, total, subtotal, disc, cgst });
+    const orderId = onDone();
+    if (orderId) setInvoiceNumber(`INV/2026-27/IND/${orderId.replace("NL-", "")}`);
     setDone(true);
-    onDone();
   };
   const close = () => {
     onClose();
@@ -748,16 +748,98 @@ function PaySheet({
     }, 300);
   };
   const pad = (k: string) => setTendered((v) => (k === "del" ? v.slice(0, -1) : (v + k).slice(0, 6)));
+  const paymentLabel = method === "split" ? "Cash + UPI" : method.toUpperCase();
+  const dateLabel = new Date().toLocaleString("en-IN", { dateStyle: "medium", timeStyle: "short" });
+  const shortDateLabel = new Date().toLocaleString("en-IN", {
+    day: "2-digit",
+    month: "2-digit",
+    hour: "2-digit",
+    minute: "2-digit",
+    hour12: false,
+  });
+
+  useEffect(() => {
+    if (!printMode) return;
+    const clearPrintMode = () => setPrintMode(null);
+    window.addEventListener("afterprint", clearPrintMode);
+    return () => window.removeEventListener("afterprint", clearPrintMode);
+  }, [printMode]);
+
+  const printReceipt = () => {
+    setPrintMode("receipt");
+    window.setTimeout(() => window.print(), 100);
+  };
+
+  const saveReceiptPdf = () => {
+    if (!snapshot) return;
+    try {
+      downloadReceiptPdf({
+        restaurant: { name: tenantName, city: tenantCity, gstin: tenantGstin },
+        receiptNumber: invoiceNumber.replace("INV/", "POS/"),
+        date: dateLabel,
+        customer: guest?.name ?? (mode === "Dine-in" ? `Table ${table}` : "Counter guest"),
+        channel: mode,
+        table: mode === "Dine-in" ? table : undefined,
+        payment: paymentLabel,
+        lines: snapshot.lines.map((l) => ({
+          name: `${l.item.name}${l.variant ? ` (${l.variant})` : ""}`,
+          qty: l.qty,
+          unitPrice: l.item.price + l.extra,
+          amount: (l.item.price + l.extra) * l.qty,
+        })),
+        subtotal: snapshot.subtotal,
+        discount: snapshot.disc,
+        tax: snapshot.cgst * 2,
+        cgst: snapshot.cgst,
+        total: snapshot.total,
+      });
+      toast.success("Receipt PDF downloaded");
+    } catch (error) {
+      console.error("Receipt PDF generation failed", error);
+      toast.error("Could not download the receipt PDF.");
+    }
+  };
+
+  const saveInvoicePdf = () => {
+    if (!snapshot) return;
+    try {
+      downloadInvoicePdf({
+        restaurant: { name: tenantName, city: tenantCity, gstin: tenantGstin },
+        invoiceNumber,
+        date: dateLabel,
+        customer: guest?.name ?? (mode === "Dine-in" ? `Table ${table}` : "Counter guest"),
+        phone: guest?.phone,
+        channel: mode,
+        table: mode === "Dine-in" ? table : undefined,
+        payment: paymentLabel,
+        lines: snapshot.lines.map((l) => ({
+          name: `${l.item.name}${l.variant ? ` (${l.variant})` : ""}`,
+          qty: l.qty,
+          unitPrice: l.item.price + l.extra,
+          amount: (l.item.price + l.extra) * l.qty,
+        })),
+        subtotal: snapshot.subtotal,
+        discount: snapshot.disc,
+        tax: snapshot.cgst * 2,
+        total: snapshot.total,
+      });
+      toast.success("Invoice PDF downloaded");
+    } catch (error) {
+      console.error("Invoice PDF generation failed", error);
+      toast.error("Could not download the invoice PDF.");
+    }
+  };
 
   return (
-    <Sheet
-      open={open}
-      onClose={close}
-      side="center"
-      width="max-w-3xl"
-      title={done ? "Payment Received" : `Collect ${inr(total)}`}
-      subtitle={done ? "GST receipt ready" : `${mode}${mode === "Dine-in" ? ` · Table ${table}` : ""}`}
-    >
+    <>
+      <Sheet
+        open={open}
+        onClose={close}
+        side="center"
+        width="max-w-3xl"
+        title={done ? "Payment Received" : `Collect ${inr(total)}`}
+        subtitle={done ? "GST receipt ready" : `${mode}${mode === "Dine-in" ? ` · Table ${table}` : ""}`}
+      >
       {!done ? (
         <div className="grid grid-cols-1 md:grid-cols-[220px_1fr]">
           <div className="grid grid-cols-2 gap-2 border-b border-[#edf0f7] p-4 md:grid-cols-1 md:border-b-0 md:border-r">
@@ -867,17 +949,20 @@ function PaySheet({
         <div className="grid grid-cols-1 items-start gap-6 p-5 md:grid-cols-[1fr_auto]">
           <div className="space-y-3">
             <p className="text-[26px] font-extrabold text-[#0f172a]">
-              Paid via {method === "split" ? "Cash + UPI" : method.toUpperCase()}.
+              Paid via {paymentLabel}.
             </p>
             <p className="text-[13.5px] text-[#64748b]">
-              KOT sent to kitchen, table status updated, and stock deducted automatically. Invoice INV/2026-27/IND/018342.
+              KOT sent to kitchen, table status updated, and stock deducted automatically. Invoice {invoiceNumber}.
             </p>
             <div className="flex flex-wrap gap-2 pt-2">
-              <Button variant="outline" className="rounded-xl" onClick={() => toast.success("Printing…", { description: "Epson TM-T82X · Counter" })}>
+              <Button variant="outline" className="rounded-xl" onClick={printReceipt}>
                 <Printer className="size-4" /> Print
               </Button>
-              <Button variant="outline" className="rounded-xl" onClick={() => toast.success("PDF invoice downloaded")}>
-                <FileDown className="size-4" /> PDF
+              <Button variant="outline" className="rounded-xl" onClick={saveInvoicePdf}>
+                <FileDown className="size-4" /> Invoice PDF
+              </Button>
+              <Button variant="outline" className="rounded-xl" onClick={saveReceiptPdf}>
+                <FileDown className="size-4" /> Receipt PDF
               </Button>
               <Button variant="outline" className="rounded-xl" onClick={() => toast.success("Sent on WhatsApp")}>
                 <Smartphone className="size-4" /> WhatsApp
@@ -896,7 +981,7 @@ function PaySheet({
                 GSTIN {tenantGstin}
               </p>
               <p className="my-2 border-t border-dashed border-[#cbd5e1]" />
-              <p className="flex justify-between"><span>INV 018342</span><span>26/11 20:16</span></p>
+              <p className="flex justify-between"><span>INV {invoiceNumber.split("/").at(-1)}</span><span>{shortDateLabel}</span></p>
               <p>{mode}{mode === "Dine-in" ? ` · T${table}` : ""} · Arjun</p>
               {guest && <p className="truncate">Guest: {guest.name} ({guest.phone})</p>}
               <p className="my-2 border-t border-dashed border-[#cbd5e1]" />
@@ -918,6 +1003,32 @@ function PaySheet({
           )}
         </div>
       )}
-    </Sheet>
+      </Sheet>
+      {printMode === "receipt" && snapshot && (
+        <article className="print-document receipt-print-document" data-print-size="receipt">
+          <h1>{tenantName}</h1>
+          <p className="text-center">{tenantCity}<br />GSTIN {tenantGstin}</p>
+          <hr />
+          <p className="flex justify-between"><span>{invoiceNumber.replace("INV/", "POS/")}</span><span>{dateLabel}</span></p>
+          <p>{mode}{mode === "Dine-in" ? ` · Table ${table}` : ""} · {paymentLabel}</p>
+          <p>Guest: {guest?.name ?? (mode === "Dine-in" ? `Table ${table}` : "Counter guest")}</p>
+          <hr />
+          {snapshot.lines.map((l) => (
+            <p key={l.id} className="flex justify-between gap-2">
+              <span>{l.qty} × {l.item.name}{l.variant ? ` (${l.variant})` : ""}</span>
+              <span>{inr((l.item.price + l.extra) * l.qty)}</span>
+            </p>
+          ))}
+          <hr />
+          <p className="flex justify-between"><span>Subtotal</span><span>{inr(snapshot.subtotal)}</span></p>
+          {snapshot.disc > 0 && <p className="flex justify-between"><span>Discount</span><span>- {inr(snapshot.disc)}</span></p>}
+          <p className="flex justify-between"><span>CGST</span><span>{inr(snapshot.cgst)}</span></p>
+          <p className="flex justify-between"><span>SGST</span><span>{inr(snapshot.cgst)}</span></p>
+          <p className="flex justify-between font-bold"><span>Total</span><span>{inr(snapshot.total)}</span></p>
+          <hr />
+          <p className="text-center">Thank you for dining with us.</p>
+        </article>
+      )}
+    </>
   );
 }

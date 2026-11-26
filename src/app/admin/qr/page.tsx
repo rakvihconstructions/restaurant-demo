@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { QRCodeSVG } from "qrcode.react";
 import { Download, ExternalLink, Printer } from "lucide-react";
 import { toast } from "sonner";
@@ -9,6 +9,11 @@ import { PageHeader, Panel } from "@/components/admin/kit";
 import { NeelaMark } from "@/components/brand";
 import { Button, Field, Input, Segmented, Switch } from "@/components/ui";
 import { tables } from "@/lib/data";
+import {
+  downloadAllQrLabelsPdf,
+  downloadQrLabelPdf,
+  svgToPngDataUrl,
+} from "@/lib/pdf-documents";
 import { cn } from "@/lib/utils";
 
 const themes = {
@@ -25,7 +30,50 @@ export default function QrPage() {
   const [theme, setTheme] = useState<keyof typeof themes>("ink");
   const [headline, setHeadline] = useState("Order at your own pace.");
   const [selected, setSelected] = useState("07");
+  const [printAll, setPrintAll] = useState(false);
   const th = themes[theme];
+
+  useEffect(() => {
+    if (!printAll) return;
+    const clearPrintAll = () => setPrintAll(false);
+    window.addEventListener("afterprint", clearPrintAll);
+    return () => window.removeEventListener("afterprint", clearPrintAll);
+  }, [printAll]);
+
+  const qrPng = async (label: string) => {
+    const svg = document.querySelector<SVGSVGElement>(`[data-qr-table="${label}"] svg`);
+    if (!svg) throw new Error(`The QR code for table ${label} is not available.`);
+    return svgToPngDataUrl(svg);
+  };
+
+  const printAllLabels = () => {
+    setPrintAll(true);
+    window.setTimeout(() => window.print(), 100);
+  };
+
+  const downloadSelectedLabel = async () => {
+    try {
+      downloadQrLabelPdf(selected, await qrPng(selected), th);
+      toast.success(`Table ${selected} label downloaded`, { description: "PDF · 60 × 90 mm" });
+    } catch (error) {
+      console.error("QR label PDF generation failed", error);
+      toast.error(error instanceof Error ? error.message : "Could not download the QR label.");
+    }
+  };
+
+  const downloadAllLabels = async () => {
+    try {
+      const labels = await Promise.all(tables.map(async (table) => ({
+        label: table.label,
+        png: await qrPng(table.label),
+      })));
+      downloadAllQrLabelsPdf(labels, th);
+      toast.success("All table labels downloaded", { description: "A4 PDF · 60 × 90 mm labels" });
+    } catch (error) {
+      console.error("Bulk QR label PDF generation failed", error);
+      toast.error(error instanceof Error ? error.message : "Could not download the table labels.");
+    }
+  };
 
   return (
     <>
@@ -35,7 +83,8 @@ export default function QrPage() {
         description="One unique code per table. Guests browse, customise and send orders straight to the kitchen, call a waiter, ask for the bill and leave feedback."
         actions={
           <>
-            <Button variant="outline" size="sm" onClick={() => toast.success("26 table cards queued", { description: "A5 print sheet · PDF" })}><Printer className="size-3.5" /> Print all</Button>
+            <Button variant="outline" size="sm" onClick={printAllLabels}><Printer className="size-3.5" /> Print all</Button>
+            <Button variant="outline" size="sm" onClick={downloadAllLabels}><Download className="size-3.5" /> Download all</Button>
             <Link href={`/t/${selected}`} target="_blank"><Button size="sm"><ExternalLink className="size-3.5" /> Open guest view</Button></Link>
           </>
         }
@@ -78,6 +127,7 @@ export default function QrPage() {
                 <button
                   key={t.id}
                   onClick={() => setSelected(t.label)}
+                  data-qr-table={t.label}
                   className={cn("flex flex-col items-center gap-2 rounded-xl border p-3 transition", selected === t.label ? "border-ink bg-paper-2/60" : "border-line-2 hover:border-ink-3", !enabled && "opacity-40")}
                 >
                   <QRCodeSVG value={`https://neela.kitchen/t/${t.label}`} size={64} bgColor="transparent" fgColor="#15140f" level="M" />
@@ -100,10 +150,31 @@ export default function QrPage() {
               </div>
               <p className="mt-4 text-center font-mono text-[10px] uppercase tracking-[0.18em] opacity-60">Scan · order · pay</p>
             </div>
-            <Button variant="outline" size="sm" onClick={() => toast.success(`Table ${selected} card downloaded`, { description: "PNG · 1200×1800" })}><Download className="size-3.5" /> Download card</Button>
+            <Button variant="outline" size="sm" onClick={downloadSelectedLabel}><Download className="size-3.5" /> Download label PDF</Button>
           </div>
         </div>
       </div>
+      {printAll && (
+        <div className="print-document qr-print-document">
+          {Array.from({ length: Math.ceil(tables.length / 6) }, (_, page) => (
+            <div className="qr-print-page" key={page}>
+              {tables.slice(page * 6, page * 6 + 6).map((table) => (
+                <article className="qr-print-label" key={table.id} style={{ backgroundColor: th.bg, color: th.fg }}>
+                  <div className="flex items-center justify-between">
+                    <span className="font-bold tracking-widest">NEELA</span>
+                    <span className="font-mono text-[8pt] uppercase tracking-widest">Table</span>
+                  </div>
+                  <p className="mt-4 font-display text-[36pt] leading-none" style={{ color: th.accent }}>{table.label}</p>
+                  <div className="mt-3 bg-white p-2">
+                    <QRCodeSVG value={`https://neela.kitchen/t/${table.label}`} size={180} level="H" fgColor="#15140f" style={{ display: "block", width: "100%", height: "auto" }} />
+                  </div>
+                  <p className="mt-3 text-center font-mono text-[7pt] uppercase tracking-widest">Scan · order · pay</p>
+                </article>
+              ))}
+            </div>
+          ))}
+        </div>
+      )}
     </>
   );
 }

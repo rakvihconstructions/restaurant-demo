@@ -386,3 +386,127 @@
     scroll-behavior: auto !important;
   }
 }
+
+.print-document {
+  display: none;
+}
+
+@media print {
+  @page {
+    size: A4 portrait;
+    margin: 12mm;
+  }
+
+  @page receipt {
+    size: 80mm auto;
+    margin: 3mm;
+  }
+
+  @page labels {
+    size: A4 portrait;
+    margin: 13.5mm 30mm;
+  }
+
+  html,
+  body {
+    overflow: visible !important;
+    background: #ffffff !important;
+  }
+
+  body * {
+    visibility: hidden !important;
+  }
+
+  .print-document,
+  .print-document * {
+    visibility: visible !important;
+  }
+
+  .print-document {
+    display: block !important;
+    position: fixed !important;
+    inset: 0 auto auto 0 !important;
+    margin: 0 !important;
+    color: #15140f !important;
+    background: #ffffff !important;
+    box-shadow: none !important;
+  }
+
+  .receipt-print-document {
+    page: receipt;
+    width: 74mm !important;
+    padding: 2mm !important;
+    font: 9pt/1.45 ui-monospace, monospace !important;
+  }
+
+  .receipt-print-document h1,
+  .receipt-print-document p {
+    margin: 0 0 3mm;
+  }
+
+  .receipt-print-document h1 {
+    text-align: center;
+    font: bold 13pt/1.2 sans-serif;
+  }
+
+  .receipt-print-document hr,
+  .order-print-document hr {
+    margin: 3mm 0;
+    border: 0;
+    border-top: 1px dashed #777777;
+  }
+
+  .order-print-document {
+    width: 180mm !important;
+    padding: 8mm !important;
+    font: 10pt/1.5 sans-serif !important;
+  }
+
+  .order-print-document h1 {
+    margin-bottom: 2mm;
+    font-size: 18pt;
+    font-weight: 700;
+  }
+
+  .order-print-document h2 {
+    margin: 6mm 0 2mm;
+    font-size: 14pt;
+    font-weight: 700;
+  }
+
+  .qr-print-document {
+    page: labels;
+    position: static !important;
+    width: 150mm !important;
+    margin: 0 auto !important;
+  }
+
+  .qr-print-page {
+    display: grid !important;
+    grid-template-columns: repeat(2, 60mm);
+    grid-template-rows: repeat(3, 90mm);
+    gap: 0 30mm;
+    break-after: page;
+    page-break-after: always;
+  }
+
+  .qr-print-page:last-child {
+    break-after: auto;
+    page-break-after: auto;
+  }
+
+  .qr-print-label {
+    width: 60mm;
+    height: 90mm;
+    padding: 5mm;
+    overflow: hidden;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  .qr-print-label svg {
+    display: block;
+    width: 100% !important;
+    height: auto !important;
+  }
+}

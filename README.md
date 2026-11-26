@@ -27,7 +27,9 @@ npm run build && npm start   # production
 | `/t/07` | QR table ordering: menu, send to kitchen, order status, call waiter, bill, feedback |
 | `/login` | Role-based sign-in (all 9 roles from the blueprint's access matrix) |
 | `/admin` | Restaurant admin — 26 modules, sidebar grouped exactly as the blueprint recommends |
-| `/pos` | POS & billing: dine-in/takeaway/delivery, hold/resume, discounts, KOT, cash/UPI/card/split, receipt |
+| `/admin/qr` | Table QR management, printable label cards, single 60 × 90 mm label PDFs and an A4 batch PDF |
+| `/admin/orders` | Order list and board, printable order receipts, and downloadable invoice PDFs |
+| `/pos` | POS & billing: dine-in/takeaway, hold/resume, discounts, KOT, cash/UPI/card/split, printable receipts and downloadable receipt/invoice PDFs |
 | `/kitchen` | Kitchen Display System: stations, timers, late alerts, item-wise prep, bump flow |
 | `/waiter` | Waiter handheld app |
 | `/platform` | SaaS Super Admin: tenants, plans, revenue, features, support, settings, audit |
