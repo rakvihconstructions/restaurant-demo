@@ -49,6 +49,7 @@ export function SiteFooter() {
             <p className="text-[11px] font-bold uppercase tracking-[0.16em] text-[#f5a623]">Explore</p>
             <ul className="mt-4 space-y-2.5 text-[14px] text-white/75">
               <li><Link href="/" className="hover:text-white">Home</Link></li>
+              <li><Link href="/about" className="hover:text-white">About Us</Link></li>
               <li><Link href="/menu" className="hover:text-white">Menu Showcase</Link></li>
               <li><Link href="/testimonials" className="hover:text-white">Testimonials</Link></li>
               <li><Link href="/reviews" className="hover:text-white">Guest Reviews</Link></li>

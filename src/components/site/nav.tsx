@@ -21,6 +21,7 @@ import { cn } from "@/lib/utils";
 
 export const siteLinks = [
   { href: "/", label: "Home" },
+  { href: "/about", label: "About" },
   { href: "/menu", label: "Menu" },
   { href: "/testimonials", label: "Testimonials" },
   { href: "/reviews", label: "Reviews" },
@@ -74,7 +75,7 @@ export function SiteNav() {
             </div>
           </Link>
 
-          <nav className="flex items-center gap-1.5">
+          <nav className="flex items-center gap-1">
             {siteLinks.map((l) => {
               const active = isActive(l.href);
               return (
@@ -83,7 +84,7 @@ export function SiteNav() {
                   href={l.href}
                   aria-current={active ? "page" : undefined}
                   className={cn(
-                    "whitespace-nowrap rounded-full px-4.5 py-2 text-[14px] font-bold tracking-[-0.01em] transition-all",
+                    "whitespace-nowrap rounded-full px-3.5 py-2 text-[13.5px] font-bold tracking-[-0.01em] transition-all xl:px-4",
                     active
                       ? "bg-[#4e1d84] text-white shadow-[0_8px_20px_-6px_rgba(78,29,132,0.6)]"
                       : "text-[#2b1b3d] hover:bg-[#f3e8ff] hover:text-[#4e1d84]",
@@ -95,10 +96,10 @@ export function SiteNav() {
             })}
           </nav>
 
-          <div className="flex shrink-0 items-center gap-2.5">
+          <div className="flex shrink-0 items-center gap-2">
             <form
               onSubmit={submitSearch}
-              className="flex h-10 w-[210px] items-center gap-2 rounded-full border border-[#4e1d84]/12 bg-white px-3.5 shadow-2xs transition focus-within:border-[#4e1d84] xl:w-[240px]"
+              className="flex h-10 w-[180px] items-center gap-2 rounded-full border border-[#4e1d84]/12 bg-white px-3.5 shadow-2xs transition focus-within:border-[#4e1d84] xl:w-[220px]"
             >
               <Search className="size-4 shrink-0 text-[#64748b]" />
               <input
