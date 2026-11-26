@@ -51,7 +51,7 @@ const PRESS_QUOTES = [
 
 export default function TestimonialsPage() {
   return (
-    <div className="mx-auto max-w-[1380px] px-4 pb-12 pt-3 sm:px-8 sm:pt-5">
+    <div className="mx-auto max-w-[1380px] px-4 pb-4 pt-2 sm:px-8 sm:pt-3">
       {/* Purple & Amber Hero */}
       <header className="relative overflow-hidden rounded-[28px] bg-gradient-to-br from-[#2a0a4f] via-[#4e1d84] to-[#3b0e6e] text-white shadow-[0_24px_56px_-20px_rgba(42,10,79,0.55)]">
         <Image
@@ -62,7 +62,7 @@ export default function TestimonialsPage() {
           sizes="100vw"
           className="object-cover opacity-25"
         />
-        <div className="relative grid grid-cols-1 items-center gap-8 p-6 sm:p-10 lg:grid-cols-12 lg:p-14">
+        <div className="relative grid grid-cols-1 items-center gap-6 p-5 sm:p-8 lg:grid-cols-12 lg:px-12 lg:py-9">
           <div className="lg:col-span-7">
             <p className="inline-flex items-center gap-1.5 text-[11px] font-extrabold uppercase tracking-[0.18em] text-[#f5a623]">
               <Sparkles className="size-3.5" /> Testimonials &amp; Stories
@@ -106,7 +106,7 @@ export default function TestimonialsPage() {
       </header>
 
       {/* Featured Guest Stories */}
-      <section className="mt-10 space-y-6">
+      <section className="mt-5 space-y-4 sm:mt-6">
         <div className="flex flex-wrap items-end justify-between gap-4">
           <div>
             <p className="text-[11px] font-extrabold uppercase tracking-[0.16em] text-[#4e1d84]">Guest Stories</p>
@@ -154,7 +154,7 @@ export default function TestimonialsPage() {
       </section>
 
       {/* Press & Critic Praise */}
-      <section className="mt-12 rounded-[28px] border border-[#4e1d84]/10 bg-gradient-to-r from-[#f3e8ff] via-[#efe3fc] to-[#e6d3fa] p-6 sm:p-10">
+      <section className="mt-6 rounded-[28px] border border-[#4e1d84]/10 bg-gradient-to-r from-[#f3e8ff] via-[#efe3fc] to-[#e6d3fa] p-5 sm:p-7">
         <div className="flex items-center gap-2 text-[11px] font-extrabold uppercase tracking-[0.16em] text-[#4e1d84]">
           <Award className="size-4" /> Press &amp; Culinary Praise
         </div>

@@ -350,6 +350,9 @@ type State = {
   autoArrangeFloor: (floor: Table["floor"]) => void;
   siteContent: SiteContent;
   updateSiteContent: (patch: Partial<SiteContent>) => void;
+  adminAuthed: boolean;
+  adminSignIn: () => void;
+  adminSignOut: () => void;
 };
 
 export const lineUnit = (l: CartLine) => {
@@ -378,6 +381,9 @@ export const useStore = create<State>()(
       siteHeadline: "COASTAL FLAVORS.\nEPIC CRAVINGS.",
       setSiteHeadline: (siteHeadline) =>
         set((s) => ({ siteHeadline, siteContent: { ...s.siteContent, headline: siteHeadline } })),
+      adminAuthed: false,
+      adminSignIn: () => set({ adminAuthed: true }),
+      adminSignOut: () => set({ adminAuthed: false }),
       siteContent: DEFAULT_SITE_CONTENT,
       updateSiteContent: (patch) =>
         set((s) => ({

@@ -93,8 +93,10 @@ export function Shell({
 
 function Sidebar({ nav, onClose }: { nav: NavGroup[]; onClose?: () => void }) {
   const path = usePathname();
+  const router = useRouter();
   const hydrated = useHydrated();
   const tenantLogos = useStore((s) => s.tenantLogos);
+  const adminSignOut = useStore((s) => s.adminSignOut);
   const customLogo = hydrated ? tenantLogos["neela"] : undefined;
   const isActive = (href: string) => (href === "/admin" ? path === href : path.startsWith(href));
 
@@ -183,7 +185,7 @@ function Sidebar({ nav, onClose }: { nav: NavGroup[]; onClose?: () => void }) {
       </nav>
 
       {/* Bottom Live Website Shortcut + Sign out */}
-      <div className="shrink-0 space-y-3 border-t border-[#edf0f7] p-3.5 lg:pb-16">
+      <div className="shrink-0 space-y-2.5 border-t border-[#edf0f7] p-3.5 lg:pb-16">
         <Link
           href="/"
           target="_blank"
@@ -192,7 +194,18 @@ function Sidebar({ nav, onClose }: { nav: NavGroup[]; onClose?: () => void }) {
           <ExternalLink className="size-3.5" /> View Demo Restaurant Website
         </Link>
 
-        <div className="flex items-center justify-between px-1">
+        <button
+          type="button"
+          onClick={() => {
+            adminSignOut();
+            router.push("/admin/login");
+          }}
+          className="flex h-9 w-full items-center justify-center gap-2 rounded-xl border border-[#e6eaf2] bg-white text-[12.5px] font-semibold text-[#64748b] transition hover:border-[#fecaca] hover:bg-[#fef2f2] hover:text-[#dc2626]"
+        >
+          <LogOut className="size-3.5" /> Sign out
+        </button>
+
+        <div className="flex items-center justify-between px-1 pt-0.5">
           <span className="text-[11.5px] font-medium text-[#94a3b8]">Indiranagar HQ</span>
           <span className="text-[11.5px] font-semibold text-[#10b981]">● Live</span>
         </div>

@@ -51,7 +51,7 @@ export default function VisitPage() {
   };
 
   return (
-    <div className="mx-auto max-w-[1380px] px-4 pb-12 pt-3 sm:px-8 sm:pt-5">
+    <div className="mx-auto max-w-[1380px] px-4 pb-4 pt-2 sm:px-8 sm:pt-3">
       {/* Purple & Amber Hero Banner (matches Home, Menu, Testimonials & Reviews) */}
       <header className="relative overflow-hidden rounded-[28px] bg-gradient-to-br from-[#2a0a4f] via-[#4e1d84] to-[#3b0e6e] text-white shadow-[0_24px_56px_-20px_rgba(42,10,79,0.55)]">
         <Image
@@ -64,7 +64,7 @@ export default function VisitPage() {
         />
         <div className="pointer-events-none absolute -right-12 -top-12 size-64 rounded-full bg-[#f5a623]/20 blur-3xl" />
 
-        <div className="relative grid grid-cols-1 items-end gap-8 p-6 sm:p-10 lg:grid-cols-12 lg:p-14">
+        <div className="relative grid grid-cols-1 items-end gap-6 p-5 sm:p-8 lg:grid-cols-12 lg:px-12 lg:py-9">
           <div className="lg:col-span-7">
             <p className="inline-flex items-center gap-1.5 text-[11px] font-extrabold uppercase tracking-[0.18em] text-[#f5a623]">
               <Sparkles className="size-3.5" /> Visit &amp; Contact Us
@@ -112,7 +112,7 @@ export default function VisitPage() {
       </header>
 
       {/* 3 Crisp Info Cards */}
-      <section className="mt-8 grid grid-cols-1 gap-4 md:grid-cols-3">
+      <section className="mt-5 grid grid-cols-1 gap-4 md:grid-cols-3">
         <div className="rounded-[24px] border border-[#4e1d84]/10 bg-white p-6 shadow-[0_10px_28px_-18px_rgba(78,29,132,0.16)]">
           <span className="grid size-11 place-items-center rounded-2xl bg-[#f3e8ff] text-[#4e1d84]">
             <MapPin className="size-5" />
@@ -149,7 +149,7 @@ export default function VisitPage() {
       </section>
 
       {/* Contact Form + Getting Here Card */}
-      <section className="mt-8 grid grid-cols-1 gap-6 lg:grid-cols-12">
+      <section className="mt-5 grid grid-cols-1 gap-5 lg:grid-cols-12">
         {/* Send Us a Message Form */}
         <div className="rounded-[28px] border border-[#4e1d84]/10 bg-white p-6 shadow-[0_14px_38px_-22px_rgba(78,29,132,0.18)] sm:p-8 lg:col-span-7">
           <p className="text-[11px] font-extrabold uppercase tracking-[0.16em] text-[#4e1d84]">Write to Us</p>
@@ -278,7 +278,7 @@ export default function VisitPage() {
       </section>
 
       {/* Soft Lavender Good-to-Know Strip */}
-      <section className="mt-8 rounded-[28px] border border-[#4e1d84]/10 bg-gradient-to-r from-[#f3e8ff] via-[#efe3fc] to-[#e6d3fa] p-6 sm:p-8">
+      <section className="mt-5 rounded-[28px] border border-[#4e1d84]/10 bg-gradient-to-r from-[#f3e8ff] via-[#efe3fc] to-[#e6d3fa] p-5 sm:p-6">
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
           {[
             ["Step-Free Access", "Wide entrance & ground-floor verandah seating for wheelchairs and strollers."],

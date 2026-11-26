@@ -12,8 +12,8 @@ export function SiteFooter() {
   const logoUrl = hydrated ? tenantLogos["neela"] : undefined;
 
   return (
-    <footer className="mt-16 rounded-t-[32px] bg-[#2a0a4f] text-white">
-      <div className="mx-auto max-w-[1380px] px-5 pb-28 pt-14 sm:px-8 lg:pb-14">
+    <footer className="mt-6 rounded-t-[32px] bg-[#2a0a4f] text-white sm:mt-8">
+      <div className="mx-auto max-w-[1380px] px-5 pb-28 pt-8 sm:px-8 sm:pt-10 lg:pb-10">
         <div className="grid grid-cols-1 gap-10 md:grid-cols-12">
           <div className="md:col-span-5">
             <div className="flex items-center gap-3">
@@ -75,7 +75,7 @@ export function SiteFooter() {
           </div>
         </div>
 
-        <div className="mt-10 flex flex-wrap items-center justify-between gap-4 border-t border-white/10 pt-6 text-[12.5px] text-white/60">
+        <div className="mt-7 flex flex-wrap items-center justify-between gap-4 border-t border-white/10 pt-5 text-[12.5px] text-white/60">
           <span>© 2026 {content.name}. All rights reserved.</span>
 
           <a

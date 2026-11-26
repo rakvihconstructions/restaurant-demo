@@ -64,9 +64,14 @@ export function SiteNav() {
                 <UtensilsCrossed className="size-4.5" strokeWidth={2.2} />
               </span>
             )}
-            <span className="whitespace-nowrap text-[19px] font-extrabold uppercase tracking-[-0.04em] text-[#4e1d84] xl:text-[21px]">
-              {brandName}
-            </span>
+            <div className="leading-tight">
+              <span className="block whitespace-nowrap text-[18px] font-extrabold uppercase tracking-[-0.04em] text-[#4e1d84] xl:text-[20px]">
+                {brandName}
+              </span>
+              <span className="block whitespace-nowrap text-[10.5px] font-semibold tracking-[0.05em] text-[#7c6a96]">
+                Coastal Indian Kitchen · Indiranagar
+              </span>
+            </div>
           </Link>
 
           <nav className="flex items-center gap-1.5">
@@ -132,9 +137,14 @@ export function SiteNav() {
                 <UtensilsCrossed className="size-4" strokeWidth={2.2} />
               </span>
             )}
-            <span className="truncate text-[18px] font-extrabold uppercase leading-none tracking-[-0.04em] text-[#4e1d84]">
-              {brandName}
-            </span>
+            <div className="min-w-0 leading-tight">
+              <span className="block truncate text-[16.5px] font-extrabold uppercase leading-none tracking-[-0.04em] text-[#4e1d84]">
+                {brandName}
+              </span>
+              <span className="mt-0.5 block truncate text-[10px] font-semibold tracking-[0.04em] text-[#7c6a96]">
+                Coastal Indian Kitchen
+              </span>
+            </div>
           </Link>
 
           <Link

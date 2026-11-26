@@ -12,7 +12,7 @@ function MenuContent() {
   const initialQuery = params.get("q") ?? "";
 
   return (
-    <div className="mx-auto max-w-[1380px] px-4 pb-10 pt-3 sm:px-8 sm:pt-5">
+    <div className="mx-auto max-w-[1380px] px-4 pb-4 pt-2 sm:px-8 sm:pt-3">
       <header className="relative overflow-hidden rounded-[28px] bg-gradient-to-br from-[#2a0a4f] via-[#4e1d84] to-[#3b0e6e] text-white shadow-[0_20px_50px_-20px_rgba(42,10,79,0.5)]">
         <Image
           src="/img/spread.jpg"
@@ -22,7 +22,7 @@ function MenuContent() {
           sizes="100vw"
           className="object-cover opacity-25"
         />
-        <div className="relative flex flex-col justify-between gap-6 p-6 sm:p-10 lg:flex-row lg:items-end">
+        <div className="relative flex flex-col justify-between gap-5 p-5 sm:px-8 sm:py-7 lg:flex-row lg:items-end">
           <div>
             <p className="inline-flex items-center gap-1.5 text-[11px] font-extrabold uppercase tracking-[0.18em] text-[#f5a623]">
               <Sparkles className="size-3.5" /> Demo Restaurant · Indiranagar
@@ -44,7 +44,7 @@ function MenuContent() {
         </div>
       </header>
 
-      <div className="mt-6">
+      <div className="mt-4">
         <MenuBrowser variant="web" initialQuery={initialQuery} onOpenCart={() => {}} />
       </div>
     </div>

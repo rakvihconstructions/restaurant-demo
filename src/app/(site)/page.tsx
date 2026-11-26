@@ -111,9 +111,9 @@ export default function RestaurantHome() {
   const nextSlide = () => setSlide((s) => (s + 1) % HERO_SLIDES.length);
 
   return (
-    <div className="mx-auto max-w-[1380px] px-4 pb-10 pt-3 sm:px-8 sm:pt-5">
+    <div className="mx-auto max-w-[1380px] px-4 pb-4 pt-2 sm:px-8 sm:pt-3">
       {/* Mobile Search + Veg Filter Row (matches Mobile Reference -19.jpg) */}
-      <div className="mb-4 flex items-center gap-2.5 lg:hidden">
+      <div className="mb-3 flex items-center gap-2.5 lg:hidden">
         <label className="flex h-12 min-w-0 flex-1 items-center gap-2.5 rounded-2xl border border-[#4e1d84]/10 bg-white px-4 shadow-[0_6px_18px_-10px_rgba(78,29,132,0.18)] focus-within:border-[#4e1d84]">
           <Search className="size-4.5 shrink-0 text-[#64748b]" />
           <input
@@ -145,7 +145,7 @@ export default function RestaurantHome() {
         <div className="pointer-events-none absolute -right-16 -top-16 size-72 rounded-full bg-[#f5a623]/20 blur-3xl" />
         <div className="pointer-events-none absolute -bottom-20 left-1/3 size-64 rounded-full bg-[#a855f7]/25 blur-3xl" />
 
-        <div className="relative grid grid-cols-1 items-center gap-6 p-6 sm:p-10 lg:grid-cols-12 lg:px-14 lg:py-12">
+        <div className="relative grid grid-cols-1 items-center gap-5 px-5 pb-3 pt-5 sm:px-8 sm:pb-4 sm:pt-7 lg:grid-cols-12 lg:px-12 lg:py-7">
           <div className="lg:col-span-6">
             <h1 className="whitespace-pre-line text-[30px] font-extrabold uppercase leading-[1.03] tracking-[-0.03em] text-white sm:text-[46px] lg:text-[52px]">
               {displayHeadline}
@@ -213,7 +213,7 @@ export default function RestaurantHome() {
         </div>
 
         {/* Carousel Dots & Desktop Arrows */}
-        <div className="relative flex items-center justify-between px-6 pb-5 sm:px-10 lg:px-14">
+        <div className="relative flex items-center justify-between px-5 pb-3.5 sm:px-8 lg:px-12">
           <div className="flex items-center gap-2">
             {HERO_SLIDES.map((_, i) => (
               <button
@@ -247,7 +247,7 @@ export default function RestaurantHome() {
       </section>
 
       {/* Circular Dish Category Strip (matches Reference) */}
-      <section className="mt-7">
+      <section className="mt-4 sm:mt-5">
         <div className="no-scrollbar -mx-4 flex items-center gap-3 overflow-x-auto px-4 pb-2 sm:mx-0 sm:justify-between sm:gap-4 sm:px-0">
           {CATEGORY_THUMBS.map((cat) => {
             const active = activeCat === cat.id;
@@ -292,8 +292,8 @@ export default function RestaurantHome() {
       </section>
 
       {/* Popular Picks Grid (NO Add to Cart — Clean Showcase + Dish Details) */}
-      <section className="mt-7">
-        <div className="mb-4 flex items-center justify-between gap-4">
+      <section className="mt-4 sm:mt-5">
+        <div className="mb-3 flex items-center justify-between gap-4">
           <div className="flex items-center gap-3">
             <h2 className="text-[22px] font-extrabold tracking-[-0.03em] text-[#0f172a] sm:text-[26px]">
               Popular Picks
@@ -410,7 +410,7 @@ export default function RestaurantHome() {
       </section>
 
       {/* Exclusive Virtual View & Chef's Tasting Lavender Banner */}
-      <section className="mt-8 overflow-hidden rounded-[28px] border border-[#4e1d84]/10 bg-gradient-to-r from-[#f3e8ff] via-[#efe3fc] to-[#e6d3fa] p-6 sm:px-10 sm:py-8">
+      <section className="mt-5 overflow-hidden rounded-[28px] border border-[#4e1d84]/10 bg-gradient-to-r from-[#f3e8ff] via-[#efe3fc] to-[#e6d3fa] p-5 sm:mt-6 sm:px-8 sm:py-6">
         <div className="grid grid-cols-1 items-center gap-6 md:grid-cols-12">
           <div className="md:col-span-5">
             <p className="text-[11px] font-extrabold uppercase tracking-[0.16em] text-[#4e1d84]">
@@ -455,7 +455,7 @@ export default function RestaurantHome() {
       </section>
 
       {/* Quick Visit & Timings Bar */}
-      <section className="mt-10 grid grid-cols-1 gap-4 rounded-[28px] border border-[#4e1d84]/10 bg-white p-6 shadow-xs md:grid-cols-3 md:items-center">
+      <section className="mt-5 grid grid-cols-1 gap-4 rounded-[28px] border border-[#4e1d84]/10 bg-white p-5 shadow-xs sm:mt-6 md:grid-cols-3 md:items-center">
         <div className="flex items-start gap-3">
           <span className="grid size-10 shrink-0 place-items-center rounded-2xl bg-[#f3e8ff] text-[#4e1d84]">
             <MapPin className="size-5" />

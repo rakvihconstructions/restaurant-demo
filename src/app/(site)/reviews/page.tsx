@@ -47,7 +47,7 @@ export default function ReviewsPage() {
   };
 
   return (
-    <div className="mx-auto max-w-[1380px] px-4 pb-12 pt-3 sm:px-8 sm:pt-5">
+    <div className="mx-auto max-w-[1380px] px-4 pb-4 pt-2 sm:px-8 sm:pt-3">
       {/* Purple-Amber Hero Rating Banner */}
       <header className="relative overflow-hidden rounded-[28px] bg-gradient-to-br from-[#2a0a4f] via-[#4e1d84] to-[#3b0e6e] text-white shadow-[0_24px_56px_-20px_rgba(42,10,79,0.55)]">
         <Image
@@ -58,7 +58,7 @@ export default function ReviewsPage() {
           sizes="100vw"
           className="object-cover opacity-20"
         />
-        <div className="relative grid grid-cols-1 items-center gap-8 p-6 sm:p-10 lg:grid-cols-12 lg:p-14">
+        <div className="relative grid grid-cols-1 items-center gap-6 p-5 sm:p-8 lg:grid-cols-12 lg:px-12 lg:py-9">
           <div className="lg:col-span-7">
             <p className="inline-flex items-center gap-1.5 text-[11px] font-extrabold uppercase tracking-[0.18em] text-[#f5a623]">
               <Sparkles className="size-3.5" /> Guest Reviews
@@ -117,7 +117,7 @@ export default function ReviewsPage() {
       </header>
 
       {/* Room Filter Pills */}
-      <div className="no-scrollbar mt-8 flex items-center gap-2 overflow-x-auto pb-1">
+      <div className="no-scrollbar mt-5 flex items-center gap-2 overflow-x-auto pb-1">
         {ROOM_FILTERS.map((r) => (
           <button
             key={r}
@@ -136,7 +136,7 @@ export default function ReviewsPage() {
       </div>
 
       {/* Reviews Grid */}
-      <div className="mt-6 grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-3">
+      <div className="mt-4 grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
         {visible.map((r) => (
           <article
             key={r.id}
@@ -186,7 +186,7 @@ export default function ReviewsPage() {
       {/* Write a Review Form (No Login Required) */}
       <section
         id="write-review"
-        className="mt-12 scroll-mt-24 overflow-hidden rounded-[28px] border border-[#4e1d84]/10 bg-gradient-to-r from-[#f3e8ff] via-[#efe3fc] to-[#e6d3fa] p-6 sm:p-10"
+        className="mt-6 scroll-mt-24 overflow-hidden rounded-[28px] border border-[#4e1d84]/10 bg-gradient-to-r from-[#f3e8ff] via-[#efe3fc] to-[#e6d3fa] p-5 sm:p-7"
       >
         <div className="grid grid-cols-1 gap-8 lg:grid-cols-12 lg:items-center">
           <div className="lg:col-span-5">
