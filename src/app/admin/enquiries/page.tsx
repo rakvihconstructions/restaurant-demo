@@ -29,11 +29,11 @@ const STATUS_META: Record<
 > = {
   new: {
     label: "New",
-    className: "border-[#5b4fe9]/25 bg-[#f5f4ff] text-[#5b4fe9]",
+    className: "border-[#4e1d84]/25 bg-[#f3e8ff] text-[#4e1d84]",
   },
   replied: {
     label: "Replied",
-    className: "border-[#0284c7]/25 bg-[#f0f9ff] text-[#0369a1]",
+    className: "border-[#f5a623]/35 bg-[#fffbeb] text-[#b45309]",
   },
   resolved: {
     label: "Resolved",
@@ -125,7 +125,7 @@ export default function AdminEnquiriesPage() {
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
                 placeholder="Search guest, contact, topic…"
-                className="h-10 w-full rounded-xl border border-line bg-white pl-9 pr-3 text-[13.5px] outline-none transition focus:border-[#5b4fe9] focus:ring-2 focus:ring-[#5b4fe9]/15"
+                className="h-10 w-full rounded-xl border border-line bg-white pl-9 pr-3 text-[13.5px] outline-none transition focus:border-[#4e1d84] focus:ring-2 focus:ring-[#4e1d84]/15"
               />
             </div>
             <p className="mt-3 text-[12.5px] leading-relaxed text-mute">
@@ -146,7 +146,7 @@ export default function AdminEnquiriesPage() {
                       className="flex items-center justify-between gap-2 text-[13px]"
                     >
                       <span className="truncate text-[#334155]">{topic}</span>
-                      <span className="rounded-full bg-[#f5f4ff] px-2.5 py-0.5 font-mono text-[11.5px] font-semibold text-[#5b4fe9]">
+                      <span className="rounded-full bg-[#f3e8ff] px-2.5 py-0.5 font-mono text-[11.5px] font-semibold text-[#4e1d84]">
                         {count}
                       </span>
                     </li>
@@ -188,7 +188,7 @@ export default function AdminEnquiriesPage() {
                     key={e.id}
                     className={cn(
                       "px-4 py-5 sm:px-5",
-                      e.status === "new" && "bg-[#f5f4ff]/35",
+                      e.status === "new" && "bg-[#f3e8ff]/35",
                     )}
                   >
                     <div className="flex flex-wrap items-center gap-x-3 gap-y-1.5">
@@ -217,7 +217,7 @@ export default function AdminEnquiriesPage() {
                             ? `mailto:${e.contact}`
                             : `tel:${e.contact.replace(/\s+/g, "")}`
                         }
-                        className="inline-flex items-center gap-1.5 font-medium text-[#5b4fe9] hover:underline"
+                        className="inline-flex items-center gap-1.5 font-medium text-[#4e1d84] hover:underline"
                       >
                         {isEmail ? (
                           <Mail className="size-3.5" />
@@ -233,8 +233,8 @@ export default function AdminEnquiriesPage() {
                     </p>
 
                     {e.reply && (
-                      <div className="mt-3 rounded-xl border border-[#5b4fe9]/15 bg-[#f5f4ff] p-3 text-[13px] text-[#334155]">
-                        <span className="font-bold text-[#5b4fe9]">
+                      <div className="mt-3 rounded-xl border border-[#4e1d84]/15 bg-[#f3e8ff] p-3 text-[13px] text-[#334155]">
+                        <span className="font-bold text-[#4e1d84]">
                           {brandName} reply:
                         </span>{" "}
                         {e.reply}

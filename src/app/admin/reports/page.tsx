@@ -43,7 +43,7 @@ export default function ReportsPage() {
             <Donut data={channelMix} height={170} />
             <div className="mt-4"><Legend items={channelMix} /></div>
           </Panel>
-          <Panel className="xl:col-span-6" title="Branch-wise" subtitle="Today"><Bars horizontal data={branchCompare} x="name" y="revenue" name="Revenue" height={200} color="#3358a8" /></Panel>
+          <Panel className="xl:col-span-6" title="Branch-wise" subtitle="Today"><Bars horizontal data={branchCompare} x="name" y="revenue" name="Revenue" height={200} color="#4e1d84" /></Panel>
           <Panel className="xl:col-span-6" title="Payment-wise" subtitle="Share of collections">
             <div className="grid grid-cols-2 items-center gap-4"><Donut data={paymentMix} height={170} /><Legend items={paymentMix} /></div>
           </Panel>
@@ -87,8 +87,8 @@ export default function ReportsPage() {
           <Panel className="xl:col-span-6" title="Revenue" subtitle="Monthly, last 12 months"><Bars data={monthly} x="m" y="revenue" name="Revenue" highlightLast height={260} /></Panel>
           <Panel className="xl:col-span-6" title="Net profit" subtitle="Monthly, last 12 months"><Bars data={monthly} x="m" y="profit" name="Net profit" highlightLast height={260} color="#2e9170" /></Panel>
           <Panel className="xl:col-span-12" title="Revenue vs expenses" subtitle="Daily, last 30 days">
-            <Lines data={daily30} x="date" series={[{ key: "revenue", name: "Revenue", color: "#3358a8" }, { key: "expenses", name: "Expenses", color: "#c4452d" }]} height={260} />
-            <div className="mt-3 flex gap-4 text-[12px] text-ink-3"><span className="flex items-center gap-1.5"><span className="h-0.5 w-4 bg-[#3358a8]" />Revenue</span><span className="flex items-center gap-1.5"><span className="h-0.5 w-4 bg-[#c4452d]" />Expenses</span></div>
+            <Lines data={daily30} x="date" series={[{ key: "revenue", name: "Revenue", color: "#4e1d84" }, { key: "expenses", name: "Expenses", color: "#c4452d" }]} height={260} />
+            <div className="mt-3 flex gap-4 text-[12px] text-ink-3"><span className="flex items-center gap-1.5"><span className="h-0.5 w-4 bg-[#4e1d84]" />Revenue</span><span className="flex items-center gap-1.5"><span className="h-0.5 w-4 bg-[#c4452d]" />Expenses</span></div>
           </Panel>
         </div>
       )}
@@ -102,7 +102,7 @@ export default function ReportsPage() {
             <Stat label="Cancellations" value="1.8%" delta={-0.4} />
           </div>
           <Panel className="xl:col-span-6" title="Kitchen performance" subtitle="Avg. prep minutes by station">
-            <Bars horizontal data={[{ s: "Cold", m: 6.1 }, { s: "Bar", m: 4.2 }, { s: "Pastry", m: 3.8 }, { s: "Tandoor", m: 13.9 }, { s: "Grill", m: 16.4 }, { s: "Curry", m: 17.2 }]} x="s" y="m" name="Minutes" fmt={(v) => `${v} min`} height={240} color="#3358a8" />
+            <Bars horizontal data={[{ s: "Cold", m: 6.1 }, { s: "Bar", m: 4.2 }, { s: "Pastry", m: 3.8 }, { s: "Tandoor", m: 13.9 }, { s: "Grill", m: 16.4 }, { s: "Curry", m: 17.2 }]} x="s" y="m" name="Minutes" fmt={(v) => `${v} min`} height={240} color="#4e1d84" />
           </Panel>
           <Panel className="xl:col-span-6" title="Staff performance" subtitle="Sales handled · rating">
             <ul className="space-y-3">

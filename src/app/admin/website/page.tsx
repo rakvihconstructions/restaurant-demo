@@ -168,7 +168,7 @@ export default function WebsitePage() {
               <div className="rounded-2xl border border-[#e6eaf2] bg-[#f7f8fc] p-3.5">
                 <div className="mb-2.5 flex items-center justify-between">
                   <span className="flex items-center gap-1.5 text-[12.5px] font-bold text-[#0f172a]">
-                    <Monitor className="size-4 text-[#5b4fe9]" /> Desktop Banner
+                    <Monitor className="size-4 text-[#4e1d84]" /> Desktop Banner
                   </span>
                   <span className="font-mono text-[10.5px] text-[#64748b]">16:9 wide</span>
                 </div>
@@ -208,7 +208,7 @@ export default function WebsitePage() {
               <div className="rounded-2xl border border-[#e6eaf2] bg-[#f7f8fc] p-3.5">
                 <div className="mb-2.5 flex items-center justify-between">
                   <span className="flex items-center gap-1.5 text-[12.5px] font-bold text-[#0f172a]">
-                    <Smartphone className="size-4 text-[#5b4fe9]" /> Mobile Banner
+                    <Smartphone className="size-4 text-[#4e1d84]" /> Mobile Banner
                   </span>
                   <span className="font-mono text-[10.5px] text-[#64748b]">4:3 mobile</span>
                 </div>

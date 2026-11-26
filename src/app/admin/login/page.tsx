@@ -13,7 +13,7 @@ import {
   Mail,
   ShieldCheck,
   Sparkles,
-  Store,
+  UtensilsCrossed,
 } from "lucide-react";
 import { toast } from "sonner";
 import { DEFAULT_SITE_CONTENT, useHydrated, useStore } from "@/lib/store";
@@ -75,34 +75,34 @@ export default function AdminLoginPage() {
 
   return (
     <div className="admin-theme relative flex min-h-dvh flex-col items-center justify-center overflow-hidden bg-[#f7f8fc] px-4 py-10 text-[#0f172a]">
-      {/* Subtle Indigo Ambient Accents matching Admin Theme */}
-      <div className="pointer-events-none absolute -left-24 -top-24 size-96 rounded-full bg-[#5b4fe9]/10 blur-3xl" />
-      <div className="pointer-events-none absolute -bottom-28 -right-24 size-96 rounded-full bg-[#5b4fe9]/12 blur-3xl" />
+      {/* Subtle Deep Purple & Amber Ambient Accents matching Public Site */}
+      <div className="pointer-events-none absolute -left-24 -top-24 size-96 rounded-full bg-[#4e1d84]/12 blur-3xl" />
+      <div className="pointer-events-none absolute -bottom-28 -right-24 size-96 rounded-full bg-[#f5a623]/14 blur-3xl" />
 
       <div className="relative w-full max-w-[440px]">
-        {/* Brand Header */}
+        {/* Brand Header (Matches Public Site Logo & Title) */}
         <div className="mb-6 flex flex-col items-center text-center">
           {customLogo ? (
             <img
               src={customLogo}
               alt={brandName}
-              className="size-13 rounded-2xl border border-[#e6eaf2] bg-white object-contain p-1.5 shadow-sm"
+              className="size-13 rounded-2xl border border-[#4e1d84]/15 bg-white object-contain p-1.5 shadow-sm"
             />
           ) : (
-            <span className="grid size-13 place-items-center rounded-2xl bg-[#5b4fe9] text-white shadow-[0_14px_30px_-10px_rgba(91,79,233,0.75)]">
-              <Store className="size-6" />
+            <span className="grid size-13 place-items-center rounded-2xl bg-[#4e1d84] text-[#f5a623] shadow-[0_14px_30px_-10px_rgba(78,29,132,0.65)]">
+              <UtensilsCrossed className="size-6" strokeWidth={2.2} />
             </span>
           )}
-          <h1 className="mt-3.5 text-[24px] font-extrabold tracking-[-0.03em] text-[#0f172a]">
+          <h1 className="mt-3.5 text-[24px] font-extrabold uppercase tracking-[-0.03em] text-[#4e1d84]">
             {brandName}
           </h1>
-          <p className="mt-0.5 text-[13px] font-medium text-[#64748b]">
+          <p className="mt-0.5 text-[13px] font-semibold text-[#7c6a96]">
             Admin &amp; POS Console · Staff Sign In
           </p>
         </div>
 
         {/* Main Login Card */}
-        <div className="rounded-[24px] border border-[#e6eaf2] bg-white p-6 shadow-[0_24px_60px_-24px_rgba(15,23,42,0.14)] sm:p-7">
+        <div className="rounded-[24px] border border-[#4e1d84]/12 bg-white p-6 shadow-[0_24px_60px_-24px_rgba(42,10,79,0.16)] sm:p-7">
           <div className="flex items-center justify-between">
             <div>
               <h2 className="text-[18px] font-bold tracking-[-0.02em] text-[#0f172a]">
@@ -112,7 +112,7 @@ export default function AdminLoginPage() {
                 Manage orders, menu, enquiries, and reports.
               </p>
             </div>
-            <span className="grid size-9 place-items-center rounded-xl bg-[#f1f0ff] text-[#5b4fe9]">
+            <span className="grid size-9 place-items-center rounded-xl bg-[#f3e8ff] text-[#4e1d84]">
               <ShieldCheck className="size-4.5" />
             </span>
           </div>
@@ -133,7 +133,7 @@ export default function AdminLoginPage() {
                     setError("");
                   }}
                   placeholder={DEMO_EMAIL}
-                  className="h-11 w-full rounded-xl border border-[#e2e8f0] bg-[#f8fafc] pl-10 pr-3.5 text-[14px] text-[#0f172a] outline-none transition focus:border-[#5b4fe9] focus:bg-white focus:ring-4 focus:ring-[#5b4fe9]/10"
+                  className="h-11 w-full rounded-xl border border-[#e2e8f0] bg-[#f8fafc] pl-10 pr-3.5 text-[14px] text-[#0f172a] outline-none transition focus:border-[#4e1d84] focus:bg-white focus:ring-4 focus:ring-[#4e1d84]/10"
                 />
               </div>
             </label>
@@ -153,13 +153,13 @@ export default function AdminLoginPage() {
                     setError("");
                   }}
                   placeholder="Enter password"
-                  className="h-11 w-full rounded-xl border border-[#e2e8f0] bg-[#f8fafc] pl-10 pr-10 text-[14px] text-[#0f172a] outline-none transition focus:border-[#5b4fe9] focus:bg-white focus:ring-4 focus:ring-[#5b4fe9]/10"
+                  className="h-11 w-full rounded-xl border border-[#e2e8f0] bg-[#f8fafc] pl-10 pr-10 text-[14px] text-[#0f172a] outline-none transition focus:border-[#4e1d84] focus:bg-white focus:ring-4 focus:ring-[#4e1d84]/10"
                 />
                 <button
                   type="button"
                   onClick={() => setShowPass((v) => !v)}
                   aria-label={showPass ? "Hide password" : "Show password"}
-                  className="absolute right-3 top-1/2 -translate-y-1/2 text-[#94a3b8] hover:text-[#475569]"
+                  className="absolute right-3 top-1/2 -translate-y-1/2 text-[#94a3b8] hover:text-[#4e1d84]"
                 >
                   {showPass ? <EyeOff className="size-4" /> : <Eye className="size-4" />}
                 </button>
@@ -174,24 +174,24 @@ export default function AdminLoginPage() {
 
             <button
               type="submit"
-              className="flex h-11 w-full items-center justify-center gap-2 rounded-xl bg-[#5b4fe9] px-5 text-[14px] font-bold text-white shadow-[0_12px_24px_-8px_rgba(91,79,233,0.65)] transition hover:bg-[#4c40d6]"
+              className="flex h-11 w-full items-center justify-center gap-2 rounded-xl bg-[#4e1d84] px-5 text-[14px] font-bold text-white shadow-[0_12px_24px_-8px_rgba(78,29,132,0.65)] transition hover:bg-[#3d116d]"
             >
-              Sign in <ArrowRight className="size-4" />
+              Sign in <ArrowRight className="size-4 text-[#f5a623]" />
             </button>
           </form>
 
           {/* Demo Credentials & One-Click Demo Login */}
-          <div className="mt-5 rounded-2xl border border-[#5b4fe9]/18 bg-[#f5f4ff] p-4">
+          <div className="mt-5 rounded-2xl border border-[#4e1d84]/18 bg-[#f3e8ff]/70 p-4">
             <div className="flex items-center justify-between gap-2">
-              <p className="inline-flex items-center gap-1.5 text-[11.5px] font-bold uppercase tracking-[0.1em] text-[#5b4fe9]">
+              <p className="inline-flex items-center gap-1.5 text-[11.5px] font-bold uppercase tracking-[0.1em] text-[#4e1d84]">
                 <KeyRound className="size-3.5" /> Demo Credentials
               </p>
-              <span className="rounded-full bg-white px-2 py-0.5 text-[10.5px] font-semibold text-[#5b4fe9]">
+              <span className="rounded-full bg-white px-2.5 py-0.5 text-[10.5px] font-bold text-[#4e1d84]">
                 Admin Access
               </span>
             </div>
 
-            <div className="mt-2.5 space-y-1.5 rounded-xl bg-white/90 px-3 py-2.5 text-[12.5px]">
+            <div className="mt-2.5 space-y-1.5 rounded-xl bg-white/95 px-3 py-2.5 text-[12.5px]">
               <div className="flex items-center justify-between gap-2">
                 <span className="text-[#64748b]">Email</span>
                 <code className="font-mono font-semibold text-[#0f172a]">{DEMO_EMAIL}</code>
@@ -205,9 +205,9 @@ export default function AdminLoginPage() {
             <button
               type="button"
               onClick={handleOneClickDemo}
-              className="mt-3 flex h-10 w-full items-center justify-center gap-2 rounded-xl border border-[#5b4fe9]/25 bg-white text-[13px] font-bold text-[#5b4fe9] shadow-2xs transition hover:bg-[#5b4fe9] hover:text-white"
+              className="mt-3 flex h-10 w-full items-center justify-center gap-2 rounded-xl border border-[#4e1d84]/25 bg-white text-[13px] font-bold text-[#4e1d84] shadow-2xs transition hover:bg-[#4e1d84] hover:text-white"
             >
-              <Sparkles className="size-4" /> One-Click Demo Login
+              <Sparkles className="size-4 text-[#f5a623]" /> One-Click Demo Login
             </button>
           </div>
         </div>
@@ -216,7 +216,7 @@ export default function AdminLoginPage() {
         <div className="mt-5 text-center">
           <Link
             href="/"
-            className="inline-flex items-center gap-1.5 text-[13px] font-semibold text-[#64748b] transition hover:text-[#5b4fe9]"
+            className="inline-flex items-center gap-1.5 text-[13px] font-semibold text-[#64748b] transition hover:text-[#4e1d84]"
           >
             <ArrowLeft className="size-3.5" /> Back to {brandName} Website
           </Link>

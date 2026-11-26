@@ -20,8 +20,8 @@ import { useSyncExternalStore } from "react";
 import { inr } from "@/lib/utils";
 
 /** Validated categorical order (dataviz validator: all checks pass, turmeric needs labels → legends carry values). */
-export const SERIES = ["#3358a8", "#cf8a1c", "#c4452d", "#2e9170", "#9a63b8"];
-const INK = "#15140f";
+export const SERIES = ["#4e1d84", "#cf8a1c", "#c4452d", "#2e9170", "#9a63b8"];
+const INK = "#4e1d84";
 const GRID = "#ece6da";
 const AXIS = "#8a8374";
 
@@ -46,7 +46,7 @@ type TipProps = { active?: boolean; payload?: readonly { dataKey?: unknown; name
 function TipBox({ active, payload, label, fmt }: TipProps) {
   if (!active || !payload?.length) return null;
   return (
-    <div className="min-w-36 rounded-lg border border-white/10 bg-night px-3 py-2 text-[12px] text-paper shadow-xl">
+    <div className="min-w-36 rounded-lg border border-white/10 bg-[#2a0a4f] px-3 py-2 text-[12px] text-white shadow-xl">
       {label !== undefined && label !== null && <p className="mb-1 font-mono text-[10.5px] uppercase tracking-wider text-paper/50">{String(label)}</p>}
       {payload.map((p) => (
         <p key={String(p.dataKey)} className="flex items-center justify-between gap-4">

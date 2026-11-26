@@ -318,7 +318,7 @@
 }
 
 /* ------------------------------------------------------------------ */
-/*  Admin & Platform Theme — Crisp White + Lavender-Indigo (#5B4FE9)  */
+/*  Admin & Platform Theme — Crisp White + Site Deep Purple (#4E1D84) */
 /* ------------------------------------------------------------------ */
 .admin-theme {
   font-family: var(--font-manrope), ui-sans-serif, system-ui, sans-serif;
@@ -328,23 +328,33 @@
   --color-paper-2: #f1f3f9;
   --color-paper-3: #e5e9f2;
   --color-bone: #ffffff;
-  --color-ink: #5b4fe9;
+  --color-ink: #4e1d84;
   --color-ink-2: #334155;
   --color-ink-3: #64748b;
   --color-mute: #94a3b8;
   --color-line: #e6eaf2;
   --color-line-2: #eef1f7;
-  --color-neela: #4b3fd6;
-  --color-turmeric: #5b4fe9;
-  --color-turmeric-2: #756af0;
-  --color-turmeric-soft: #f1f0ff;
-  --color-amber-ink: #5b4fe9;
+  --color-neela: #4e1d84;
+  --color-neela-2: #3d116d;
+  --color-neela-3: #6b2ca8;
+  --color-night: #2a0a4f;
+  --color-night-2: #361063;
+  --color-night-3: #4e1d84;
+  --color-cobalt: #4e1d84;
+  --color-cobalt-deep: #2a0a4f;
+  --color-obsidian: #2a0a4f;
+  --color-obsidian-2: #361063;
+  --color-obsidian-3: #4e1d84;
+  --color-turmeric: #4e1d84;
+  --color-turmeric-2: #6b2ca8;
+  --color-turmeric-soft: #f3e8ff;
+  --color-amber-ink: #4e1d84;
   --color-leaf: #10b981;
   --color-leaf-soft: #ecfdf5;
   --color-chili: #ef4444;
   --color-chili-soft: #fef2f2;
-  --color-sky: #4f46e5;
-  --color-sky-soft: #eef2ff;
+  --color-sky: #4e1d84;
+  --color-sky-soft: #f3e8ff;
 }
 
 .admin-theme .card {

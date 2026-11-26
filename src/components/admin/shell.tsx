@@ -13,12 +13,12 @@ import {
   LogOut,
   Menu,
   Search,
-  Store,
+  UtensilsCrossed,
   X,
 } from "lucide-react";
 import { Avatar } from "@/components/ui";
 import { notifications } from "@/lib/data";
-import { useHydrated, useStore } from "@/lib/store";
+import { DEFAULT_SITE_CONTENT, useHydrated, useStore } from "@/lib/store";
 import { cn } from "@/lib/utils";
 import { adminNav, type NavGroup } from "./nav";
 
@@ -96,31 +96,33 @@ function Sidebar({ nav, onClose }: { nav: NavGroup[]; onClose?: () => void }) {
   const router = useRouter();
   const hydrated = useHydrated();
   const tenantLogos = useStore((s) => s.tenantLogos);
+  const storedContent = useStore((s) => s.siteContent);
   const adminSignOut = useStore((s) => s.adminSignOut);
+  const brandName = (hydrated && storedContent?.name) || DEFAULT_SITE_CONTENT.name;
   const customLogo = hydrated ? tenantLogos["neela"] : undefined;
   const isActive = (href: string) => (href === "/admin" ? path === href : path.startsWith(href));
 
   return (
     <div className="flex h-full flex-col bg-white text-[#0f172a]">
-      {/* Brand Header */}
+      {/* Brand Header (Matches Public Site Logo & Purple Theme) */}
       <div className="flex h-16 shrink-0 items-center justify-between px-5">
         <Link href="/admin" className="flex min-w-0 items-center gap-3">
           {customLogo ? (
             <img
               src={customLogo}
-              alt="Demo Restaurant"
-              className="size-9 shrink-0 rounded-xl border border-[#e6eaf2] bg-white object-contain p-0.5 shadow-xs"
+              alt={brandName}
+              className="size-9 shrink-0 rounded-2xl border border-[#4e1d84]/15 bg-white object-contain p-1 shadow-xs"
             />
           ) : (
-            <span className="grid size-9 shrink-0 place-items-center rounded-xl bg-[#5b4fe9] text-white shadow-[0_8px_18px_-6px_rgba(91,79,233,0.65)]">
-              <Store className="size-4.5" />
+            <span className="grid size-9 shrink-0 place-items-center rounded-2xl bg-[#4e1d84] text-[#f5a623] shadow-[0_8px_18px_-6px_rgba(78,29,132,0.55)]">
+              <UtensilsCrossed className="size-4.5" strokeWidth={2.2} />
             </span>
           )}
           <span className="min-w-0 leading-tight">
-            <span className="block truncate text-[15px] font-extrabold tracking-[-0.03em] text-[#0f172a]">
-              Demo Restaurant
+            <span className="block truncate text-[15px] font-extrabold uppercase tracking-[-0.03em] text-[#4e1d84]">
+              {brandName}
             </span>
-            <span className="block text-[11px] font-medium text-[#94a3b8]">
+            <span className="block text-[11px] font-medium text-[#7c6a96]">
               Admin &amp; POS Console
             </span>
           </span>
@@ -153,14 +155,14 @@ function Sidebar({ nav, onClose }: { nav: NavGroup[]; onClose?: () => void }) {
                     className={cn(
                       "group relative flex h-10 items-center gap-3 rounded-xl px-3 text-[13.5px] font-medium transition-colors",
                       active
-                        ? "bg-[#f1f0ff] font-semibold text-[#5b4fe9]"
+                        ? "bg-[#f3e8ff] font-semibold text-[#4e1d84]"
                         : "text-[#64748b] hover:bg-[#f7f8fc] hover:text-[#0f172a]",
                     )}
                   >
                     <it.icon
                       className={cn(
                         "size-[17px] shrink-0 transition-colors",
-                        active ? "text-[#5b4fe9]" : "text-[#94a3b8] group-hover:text-[#475569]",
+                        active ? "text-[#4e1d84]" : "text-[#94a3b8] group-hover:text-[#475569]",
                       )}
                       strokeWidth={active ? 2.1 : 1.75}
                     />
@@ -170,7 +172,7 @@ function Sidebar({ nav, onClose }: { nav: NavGroup[]; onClose?: () => void }) {
                       <span
                         className={cn(
                           "rounded-full px-2 py-0.5 text-[10.5px] font-bold tnum",
-                          active ? "bg-[#5b4fe9] text-white" : "bg-[#f1f3f9] text-[#64748b]",
+                          active ? "bg-[#4e1d84] text-white" : "bg-[#f1f3f9] text-[#64748b]",
                         )}
                       >
                         {it.badge}
@@ -189,9 +191,9 @@ function Sidebar({ nav, onClose }: { nav: NavGroup[]; onClose?: () => void }) {
         <Link
           href="/"
           target="_blank"
-          className="flex h-10 w-full items-center justify-center gap-2 rounded-xl bg-[#f1f0ff] text-[12.5px] font-bold text-[#5b4fe9] transition hover:bg-[#e5e3ff]"
+          className="flex h-10 w-full items-center justify-center gap-2 rounded-xl bg-[#f3e8ff] text-[12.5px] font-bold text-[#4e1d84] transition hover:bg-[#e9d5ff]"
         >
-          <ExternalLink className="size-3.5" /> View Demo Restaurant Website
+          <ExternalLink className="size-3.5" /> View {brandName} Website
         </Link>
 
         <button
@@ -288,11 +290,11 @@ function Topbar({
                         }}
                         className={cn(
                           "flex w-full items-center justify-between rounded-xl px-3 py-2 text-left text-[13px] transition hover:bg-[#f7f8fc]",
-                          b === branch ? "bg-[#f1f0ff] font-semibold text-[#5b4fe9]" : "text-[#334155]",
+                          b === branch ? "bg-[#f3e8ff] font-semibold text-[#4e1d84]" : "text-[#334155]",
                         )}
                       >
                         {b}
-                        {b === branch && <span className="size-1.5 rounded-full bg-[#5b4fe9]" />}
+                        {b === branch && <span className="size-1.5 rounded-full bg-[#4e1d84]" />}
                       </button>
                     ))}
                   </Dropdown>
@@ -323,14 +325,14 @@ function Topbar({
                 >
                   <div className="flex items-center justify-between px-3 pb-2 pt-2.5">
                     <p className="text-[15px] font-bold text-[#0f172a]">Live activity</p>
-                    <Link href="/admin/notifications" className="text-[12px] font-semibold text-[#5b4fe9] hover:underline">
+                    <Link href="/admin/notifications" className="text-[12px] font-semibold text-[#4e1d84] hover:underline">
                       View all
                     </Link>
                   </div>
                   <ul className="max-h-[60vh] overflow-y-auto">
                     {notifications.map((n) => (
                       <li key={n.id} className="flex gap-3 rounded-xl px-3 py-2.5 hover:bg-[#f7f8fc]">
-                        <span className={cn("mt-1.5 size-2 shrink-0 rounded-full", n.unread ? "bg-[#5b4fe9]" : "bg-[#cbd5e1]")} />
+                        <span className={cn("mt-1.5 size-2 shrink-0 rounded-full", n.unread ? "bg-[#4e1d84]" : "bg-[#cbd5e1]")} />
                         <div className="min-w-0 flex-1">
                           <p className="text-[13px] font-semibold leading-snug text-[#0f172a]">{n.title}</p>
                           <p className="truncate text-[12px] text-[#64748b]">{n.body}</p>
@@ -350,7 +352,7 @@ function Topbar({
           </div>
 
           <div className="flex items-center gap-2.5 border-l border-[#edf0f7] pl-3">
-            <Avatar name={user.name} tone={0} className="size-9 bg-[#5b4fe9] text-white" />
+            <Avatar name={user.name} tone={0} className="size-9 bg-[#4e1d84] text-[#f5a623]" />
             <div className="hidden leading-tight xl:block">
               <p className="text-[13px] font-bold text-[#0f172a]">{user.name}</p>
               <p className="text-[11px] font-medium text-[#94a3b8]">{user.role}</p>
@@ -460,12 +462,12 @@ function PaletteBody({ onClose, nav }: { onClose: () => void; nav: NavGroup[] })
                 onClick={() => go(it.href)}
                 className={cn(
                   "flex w-full items-center gap-3 rounded-xl px-3 py-2.5 text-left transition",
-                  i === idx ? "bg-[#f1f0ff] font-semibold text-[#5b4fe9]" : "text-[#334155]",
+                  i === idx ? "bg-[#f3e8ff] font-semibold text-[#4e1d84]" : "text-[#334155]",
                 )}
               >
-                <it.icon className={cn("size-4", i === idx ? "text-[#5b4fe9]" : "text-[#94a3b8]")} />
+                <it.icon className={cn("size-4", i === idx ? "text-[#4e1d84]" : "text-[#94a3b8]")} />
                 <span className="flex-1 text-[14px]">{it.label}</span>
-                <span className={cn("text-[11.5px]", i === idx ? "text-[#5b4fe9]/70" : "text-[#94a3b8]")}>
+                <span className={cn("text-[11.5px]", i === idx ? "text-[#4e1d84]/70" : "text-[#94a3b8]")}>
                   {it.group}
                 </span>
               </button>

@@ -68,7 +68,7 @@ export default function AdminReviewsPage() {
                   <span className="w-3 font-mono">{d.s}</span>
                   <div className="h-2 flex-1 overflow-hidden rounded-full bg-paper-2">
                     <div
-                      className={cn("h-full rounded-full", d.s >= 4 ? "bg-[#5b4fe9]" : d.s === 3 ? "bg-turmeric" : "bg-chili")}
+                      className={cn("h-full rounded-full", d.s >= 4 ? "bg-[#4e1d84]" : d.s === 3 ? "bg-turmeric" : "bg-chili")}
                       style={{ width: `${(d.n / total) * 100}%` }}
                     />
                   </div>
@@ -134,8 +134,8 @@ export default function AdminReviewsPage() {
                   {r.dish && <p className="mt-2 text-[12px] text-mute">Dish: {r.dish}</p>}
 
                   {r.reply && (
-                    <div className="mt-3 rounded-xl border border-[#5b4fe9]/15 bg-[#f5f4ff] p-3 text-[13px] text-[#334155]">
-                      <span className="font-bold text-[#5b4fe9]">Demo Restaurant reply:</span> {r.reply}
+                    <div className="mt-3 rounded-xl border border-[#4e1d84]/15 bg-[#f3e8ff] p-3 text-[13px] text-[#334155]">
+                      <span className="font-bold text-[#4e1d84]">Demo Restaurant reply:</span> {r.reply}
                     </div>
                   )}
 

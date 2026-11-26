@@ -19,7 +19,7 @@ export function PageHeader({
   return (
     <div className="mb-6 flex flex-col gap-4 sm:mb-7 md:flex-row md:items-end md:justify-between">
       <div className="min-w-0">
-        {eyebrow && <p className="eyebrow text-[#5b4fe9]">{eyebrow}</p>}
+        {eyebrow && <p className="eyebrow text-[#4e1d84]">{eyebrow}</p>}
         <h1 className="mt-1.5 text-[28px] font-extrabold leading-[1.1] tracking-[-0.03em] text-[#0f172a] sm:text-[34px]">
           {title}
         </h1>
@@ -31,7 +31,7 @@ export function PageHeader({
 }
 
 const iconTones = {
-  ink: "bg-[#f1f0ff] text-[#5b4fe9]",
+  ink: "bg-[#f3e8ff] text-[#4e1d84]",
   chili: "bg-[#fef2f2] text-[#ef4444]",
   leaf: "bg-[#ecfdf5] text-[#10b981]",
   turmeric: "bg-[#fff7ed] text-[#f59e0b]",
@@ -86,7 +86,7 @@ export function Stat({
       </div>
       {spark && (
         <div className="-mx-1 mt-3">
-          <Spark values={spark} color={tone === "chili" ? "#ef4444" : tone === "leaf" ? "#10b981" : "#5b4fe9"} />
+          <Spark values={spark} color={tone === "chili" ? "#ef4444" : tone === "leaf" ? "#10b981" : "#4e1d84"} />
         </div>
       )}
     </div>
@@ -233,7 +233,7 @@ export function SearchBox({
   className?: string;
 }) {
   return (
-    <label className={cn("flex h-9 min-w-0 items-center gap-2 rounded-xl border border-[#e6eaf2] bg-[#f7f8fc] px-3.5 focus-within:border-[#5b4fe9] focus-within:bg-white", className)}>
+    <label className={cn("flex h-9 min-w-0 items-center gap-2 rounded-xl border border-[#e6eaf2] bg-[#f7f8fc] px-3.5 focus-within:border-[#4e1d84] focus-within:bg-white", className)}>
       <Search className="size-3.5 shrink-0 text-[#94a3b8]" />
       <input
         value={value}

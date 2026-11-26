@@ -14,7 +14,7 @@ import { cn } from "@/lib/utils";
 const themes = {
   ink: { bg: "#15140f", fg: "#f4efe6", accent: "#d4952a", label: "Ink" },
   paper: { bg: "#f4efe6", fg: "#15140f", accent: "#b23a26", label: "Paper" },
-  neela: { bg: "#14213d", fg: "#f4efe6", accent: "#e8b45a", label: "Neela" },
+  neela: { bg: "#4e1d84", fg: "#ffffff", accent: "#f5a623", label: "Purple" },
 };
 
 export default function QrPage() {

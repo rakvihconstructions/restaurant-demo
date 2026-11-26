@@ -105,7 +105,7 @@ export default function BranchesPage() {
             onClick={() => setSel(b)}
             className="card group overflow-hidden text-left transition hover:-translate-y-0.5 hover:shadow-xl"
           >
-            <div className="relative aspect-[16/7] overflow-hidden bg-[#1e293b]">
+            <div className="relative aspect-[16/7] overflow-hidden bg-[#2a0a4f]">
               {b.image.startsWith("data:") ? (
                 <img
                   src={b.image}
@@ -217,9 +217,9 @@ export default function BranchesPage() {
               <button
                 type="button"
                 onClick={() => fileRef.current?.click()}
-                className="flex aspect-[16/7] w-full flex-col items-center justify-center gap-2 rounded-2xl border-2 border-dashed border-[#cbd5e1] bg-[#f7f8fc] p-5 text-center transition hover:border-[#5b4fe9] hover:bg-[#f5f4ff]"
+                className="flex aspect-[16/7] w-full flex-col items-center justify-center gap-2 rounded-2xl border-2 border-dashed border-[#cbd5e1] bg-[#f7f8fc] p-5 text-center transition hover:border-[#4e1d84] hover:bg-[#f3e8ff]"
               >
-                <span className="grid size-11 place-items-center rounded-xl bg-white text-[#5b4fe9] shadow-xs">
+                <span className="grid size-11 place-items-center rounded-xl bg-white text-[#4e1d84] shadow-xs">
                   <Upload className="size-5" />
                 </span>
                 <span className="text-[13.5px] font-bold text-[#0f172a]">Click to upload branch photo</span>

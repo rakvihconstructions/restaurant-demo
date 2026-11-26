@@ -144,7 +144,7 @@ export default function POS() {
               onClick={() => setMode(m)}
               className={cn(
                 "rounded-lg py-1.5 text-[12px] font-semibold transition",
-                mode === m ? "bg-white text-[#5b4fe9] shadow-xs" : "text-[#64748b] hover:text-[#0f172a]",
+                mode === m ? "bg-white text-[#4e1d84] shadow-xs" : "text-[#64748b] hover:text-[#0f172a]",
               )}
             >
               {m}
@@ -171,19 +171,19 @@ export default function POS() {
             className={cn(
               "flex h-9 items-center gap-2 rounded-xl border px-3 text-left text-[12.5px] font-semibold transition",
               guest
-                ? "border-[#5b4fe9]/30 bg-[#f1f0ff] text-[#5b4fe9]"
+                ? "border-[#4e1d84]/30 bg-[#f3e8ff] text-[#4e1d84]"
                 : "border-[#e6eaf2] bg-[#f7f8fc] text-[#475569] hover:bg-white",
             )}
           >
-            <UserRound className="size-3.5 shrink-0 text-[#5b4fe9]" />
+            <UserRound className="size-3.5 shrink-0 text-[#4e1d84]" />
             <span className="truncate">{guest ? guest.name : "Add customer"}</span>
           </button>
         </div>
         {guest && (
-          <div className="flex items-center justify-between gap-2 rounded-xl border border-[#5b4fe9]/20 bg-[#f5f4ff] px-3 py-2 text-[12px]">
+          <div className="flex items-center justify-between gap-2 rounded-xl border border-[#4e1d84]/20 bg-[#f3e8ff] px-3 py-2 text-[12px]">
             <div className="min-w-0">
               <p className="truncate font-bold text-[#0f172a]">{guest.name}</p>
-              <p className="font-mono text-[11px] text-[#5b4fe9]">{guest.phone}</p>
+              <p className="font-mono text-[11px] text-[#4e1d84]">{guest.phone}</p>
             </div>
             <button
               type="button"
@@ -201,7 +201,7 @@ export default function POS() {
         {lines.length === 0 ? (
           <div className="grid h-full min-h-48 place-items-center p-8 text-center">
             <div>
-              <span className="mx-auto grid size-12 place-items-center rounded-2xl bg-[#f1f0ff] text-[#5b4fe9]">
+              <span className="mx-auto grid size-12 place-items-center rounded-2xl bg-[#f3e8ff] text-[#4e1d84]">
                 <ClipboardList className="size-5" />
               </span>
               <p className="mt-3 text-[16px] font-bold text-[#0f172a]">New Order</p>
@@ -218,7 +218,7 @@ export default function POS() {
                   {l.item.image ? (
                     <Image src={l.item.image} alt="" fill sizes="44px" className="object-cover" />
                   ) : (
-                    <span className="grid h-full place-items-center text-sm font-bold text-[#5b4fe9]">{l.item.name[0]}</span>
+                    <span className="grid h-full place-items-center text-sm font-bold text-[#4e1d84]">{l.item.name[0]}</span>
                   )}
                 </div>
                 <div className="min-w-0 flex-1">
@@ -270,7 +270,7 @@ export default function POS() {
               className={cn(
                 "flex-1 rounded-xl border py-1.5 text-[12px] font-bold transition tnum",
                 discount === d
-                  ? "border-[#5b4fe9] bg-[#f1f0ff] text-[#5b4fe9]"
+                  ? "border-[#4e1d84] bg-[#f3e8ff] text-[#4e1d84]"
                   : "border-[#e6eaf2] bg-[#f7f8fc] text-[#64748b] hover:bg-white",
               )}
             >
@@ -314,7 +314,7 @@ export default function POS() {
               setPayOpen(true);
             }}
             disabled={!lines.length}
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-xl bg-[#5b4fe9] text-[14.5px] font-bold text-white shadow-[0_10px_24px_-8px_rgba(91,79,233,0.75)] transition hover:bg-[#4b3fd6] disabled:opacity-45"
+            className="flex h-12 w-full items-center justify-center gap-2 rounded-xl bg-[#4e1d84] text-[14.5px] font-bold text-white shadow-[0_10px_24px_-8px_rgba(78,29,132,0.75)] transition hover:bg-[#3d116d] disabled:opacity-45"
           >
             Charge {lines.length ? inr(total) : ""} <ArrowRight className="size-4" />
           </button>
@@ -322,7 +322,7 @@ export default function POS() {
             <button
               onClick={hold}
               disabled={!lines.length}
-              className="flex h-10 items-center justify-center gap-1.5 rounded-xl border border-[#e5e3ff] bg-[#f5f4ff] text-[13px] font-bold text-[#5b4fe9] transition hover:bg-[#eceaff] disabled:opacity-45"
+              className="flex h-10 items-center justify-center gap-1.5 rounded-xl border border-[#e9d5ff] bg-[#f3e8ff] text-[13px] font-bold text-[#4e1d84] transition hover:bg-[#eceaff] disabled:opacity-45"
             >
               <Bookmark className="size-3.5" /> Save as Draft
             </button>
@@ -331,7 +331,7 @@ export default function POS() {
               disabled={!lines.length}
               className="flex h-10 items-center justify-center gap-1.5 rounded-xl border border-[#e6eaf2] bg-[#f7f8fc] text-[13px] font-bold text-[#334155] transition hover:bg-white disabled:opacity-45"
             >
-              <ChefHat className="size-3.5 text-[#5b4fe9]" /> Send KOT
+              <ChefHat className="size-3.5 text-[#4e1d84]" /> Send KOT
             </button>
           </div>
         </div>
@@ -345,7 +345,7 @@ export default function POS() {
       <aside className="hidden w-[76px] shrink-0 flex-col items-center gap-2 border-r border-[#edf0f7] bg-white py-4 md:flex">
         <Link
           href="/admin"
-          className="mb-4 grid size-10 place-items-center overflow-hidden rounded-xl bg-[#5b4fe9] text-white shadow-[0_8px_18px_-6px_rgba(91,79,233,0.65)]"
+          className="mb-4 grid size-10 place-items-center overflow-hidden rounded-xl bg-[#4e1d84] text-white shadow-[0_8px_18px_-6px_rgba(78,29,132,0.65)]"
           title={`Back to ${tenantName} Admin`}
         >
           {customLogo ? (
@@ -366,7 +366,7 @@ export default function POS() {
               href={h as string}
               className={cn(
                 "flex w-14 flex-col items-center gap-1 rounded-xl py-2.5 text-[10.5px] font-semibold transition",
-                a ? "bg-[#f1f0ff] text-[#5b4fe9]" : "text-[#64748b] hover:bg-[#f7f8fc] hover:text-[#0f172a]",
+                a ? "bg-[#f3e8ff] text-[#4e1d84]" : "text-[#64748b] hover:bg-[#f7f8fc] hover:text-[#0f172a]",
               )}
             >
               <Icon className="size-5" strokeWidth={a ? 2.1 : 1.75} />
@@ -388,7 +388,7 @@ export default function POS() {
         <header className="flex items-center gap-3 border-b border-[#edf0f7] bg-white px-4 py-3 sm:px-6">
           <Link
             href="/admin"
-            className="grid size-9 place-items-center overflow-hidden rounded-xl bg-[#5b4fe9] text-white md:hidden"
+            className="grid size-9 place-items-center overflow-hidden rounded-xl bg-[#4e1d84] text-white md:hidden"
             aria-label="Back to Admin"
           >
             {customLogo ? (
@@ -401,7 +401,7 @@ export default function POS() {
             <p className="text-[17px] font-extrabold leading-none tracking-[-0.02em] text-[#0f172a]">{tenantName} · POS 01</p>
             <p className="mt-1 text-[11.5px] font-medium text-[#94a3b8]">Arjun N. · {tenantCity} · Dinner Service</p>
           </div>
-          <label className="ml-auto flex h-10 w-full max-w-sm items-center gap-2 rounded-xl border border-[#e6eaf2] bg-[#f7f8fc] px-3.5 focus-within:border-[#5b4fe9] focus-within:bg-white">
+          <label className="ml-auto flex h-10 w-full max-w-sm items-center gap-2 rounded-xl border border-[#e6eaf2] bg-[#f7f8fc] px-3.5 focus-within:border-[#4e1d84] focus-within:bg-white">
             <Search className="size-4 text-[#94a3b8]" />
             <input
               value={q}
@@ -421,7 +421,7 @@ export default function POS() {
               onClick={() => setCat(c.id)}
               className={cn(
                 "shrink-0 rounded-xl px-3.5 py-1.5 text-[13px] font-semibold transition",
-                cat === c.id ? "bg-[#f1f0ff] text-[#5b4fe9]" : "text-[#64748b] hover:bg-[#f7f8fc] hover:text-[#0f172a]",
+                cat === c.id ? "bg-[#f3e8ff] text-[#4e1d84]" : "text-[#64748b] hover:bg-[#f7f8fc] hover:text-[#0f172a]",
               )}
             >
               {c.name}
@@ -440,7 +440,7 @@ export default function POS() {
                   setHeld((x) => x.filter((y) => y.id !== h.id));
                   toast(`Resumed ${h.label}`);
                 }}
-                className="flex shrink-0 items-center gap-1.5 rounded-full border border-[#e5e3ff] bg-white px-3 py-1 text-[12px] font-semibold text-[#5b4fe9] shadow-2xs transition hover:bg-[#f5f4ff]"
+                className="flex shrink-0 items-center gap-1.5 rounded-full border border-[#e9d5ff] bg-white px-3 py-1 text-[12px] font-semibold text-[#4e1d84] shadow-2xs transition hover:bg-[#f3e8ff]"
               >
                 <PauseCircle className="size-3.5" /> {h.label}
               </button>
@@ -459,7 +459,7 @@ export default function POS() {
                   onClick={() => add(m)}
                   className={cn(
                     "group relative flex flex-col overflow-hidden rounded-2xl border bg-white p-3 text-left shadow-[0_4px_18px_-8px_rgba(15,23,42,0.06)] transition active:scale-[0.98]",
-                    inTicket ? "border-[#5b4fe9] ring-1 ring-[#5b4fe9]/30" : "border-[#eceff6] hover:border-[#cbd5e1]",
+                    inTicket ? "border-[#4e1d84] ring-1 ring-[#4e1d84]/30" : "border-[#eceff6] hover:border-[#cbd5e1]",
                   )}
                 >
                   <div className="relative aspect-[4/3] w-full overflow-hidden rounded-xl bg-[#f1f3f9]">
@@ -472,12 +472,12 @@ export default function POS() {
                         className="object-cover transition duration-500 group-hover:scale-105"
                       />
                     ) : (
-                      <span className="grid h-full place-items-center text-3xl font-extrabold text-[#5b4fe9]/35">
+                      <span className="grid h-full place-items-center text-3xl font-extrabold text-[#4e1d84]/35">
                         {m.name[0]}
                       </span>
                     )}
                     {inTicket > 0 && (
-                      <span className="absolute right-2 top-2 grid size-6.5 place-items-center rounded-full bg-[#5b4fe9] text-[11.5px] font-bold text-white shadow-md tnum">
+                      <span className="absolute right-2 top-2 grid size-6.5 place-items-center rounded-full bg-[#4e1d84] text-[11.5px] font-bold text-white shadow-md tnum">
                         {inTicket}
                       </span>
                     )}
@@ -489,11 +489,11 @@ export default function POS() {
                       <span className="line-clamp-2">{m.name}</span>
                     </p>
                     <div className="mt-auto flex items-center justify-between pt-3">
-                      <span className="text-[14px] font-extrabold text-[#5b4fe9] tnum">
+                      <span className="text-[14px] font-extrabold text-[#4e1d84] tnum">
                         {inr(m.price)}
                         {m.variants && <span className="ml-0.5 text-[11px] font-medium text-[#94a3b8]">+</span>}
                       </span>
-                      <span className="grid size-7 place-items-center rounded-full bg-[#f1f0ff] text-[#5b4fe9] transition group-hover:bg-[#5b4fe9] group-hover:text-white">
+                      <span className="grid size-7 place-items-center rounded-full bg-[#f3e8ff] text-[#4e1d84] transition group-hover:bg-[#4e1d84] group-hover:text-white">
                         <Plus className="size-3.5" strokeWidth={2.5} />
                       </span>
                     </div>
@@ -512,7 +512,7 @@ export default function POS() {
       <div className="fixed inset-x-3 bottom-3 z-30 lg:hidden">
         <button
           onClick={() => setTicketOpen(true)}
-          className="flex h-14 w-full items-center justify-between rounded-2xl bg-[#5b4fe9] pl-5 pr-2 text-white shadow-2xl"
+          className="flex h-14 w-full items-center justify-between rounded-2xl bg-[#4e1d84] pl-5 pr-2 text-white shadow-2xl"
         >
           <span className="text-left">
             <span className="block text-[11px] font-semibold text-white/75">
@@ -521,7 +521,7 @@ export default function POS() {
             </span>
             <span className="text-[15.5px] font-extrabold tnum">{inr(total)}</span>
           </span>
-          <span className="flex h-10 items-center rounded-xl bg-white px-4 text-[13.5px] font-bold text-[#5b4fe9]">
+          <span className="flex h-10 items-center rounded-xl bg-white px-4 text-[13.5px] font-bold text-[#4e1d84]">
             View Order
           </span>
         </button>
@@ -541,10 +541,10 @@ export default function POS() {
                 add(variantFor, v);
                 setVariantFor(null);
               }}
-              className="flex items-center justify-between rounded-xl border border-[#e6eaf2] bg-white px-4 py-3.5 text-left text-[14px] font-semibold text-[#0f172a] hover:border-[#5b4fe9] hover:bg-[#f5f4ff]"
+              className="flex items-center justify-between rounded-xl border border-[#e6eaf2] bg-white px-4 py-3.5 text-left text-[14px] font-semibold text-[#0f172a] hover:border-[#4e1d84] hover:bg-[#f3e8ff]"
             >
               {v.label}
-              <span className="font-bold text-[#5b4fe9] tnum">{inr(variantFor.price + v.price)}</span>
+              <span className="font-bold text-[#4e1d84] tnum">{inr(variantFor.price + v.price)}</span>
             </button>
           ))}
         </div>
@@ -571,7 +571,7 @@ export default function POS() {
                 onClick={() => setGuestTab(k)}
                 className={cn(
                   "rounded-lg py-2 text-[12.5px] font-bold transition",
-                  guestTab === k ? "bg-white text-[#5b4fe9] shadow-xs" : "text-[#64748b] hover:text-[#0f172a]",
+                  guestTab === k ? "bg-white text-[#4e1d84] shadow-xs" : "text-[#64748b] hover:text-[#0f172a]",
                 )}
               >
                 {lbl}
@@ -581,7 +581,7 @@ export default function POS() {
 
           {guestTab === "existing" ? (
             <div className="mt-4">
-              <label className="flex h-10 items-center gap-2 rounded-xl border border-[#e6eaf2] bg-[#f7f8fc] px-3 focus-within:border-[#5b4fe9] focus-within:bg-white">
+              <label className="flex h-10 items-center gap-2 rounded-xl border border-[#e6eaf2] bg-[#f7f8fc] px-3 focus-within:border-[#4e1d84] focus-within:bg-white">
                 <Search className="size-4 text-[#94a3b8]" />
                 <input
                   value={guestSearch}
@@ -606,11 +606,11 @@ export default function POS() {
                           setGuestOpen(false);
                           toast.success(`Customer attached: ${c.name}`, { description: c.phone });
                         }}
-                        className="flex w-full items-center justify-between gap-3 px-3.5 py-2.5 text-left transition hover:bg-[#f5f4ff]"
+                        className="flex w-full items-center justify-between gap-3 px-3.5 py-2.5 text-left transition hover:bg-[#f3e8ff]"
                       >
                         <div className="min-w-0">
                           <p className="truncate text-[13.5px] font-bold text-[#0f172a]">{c.name}</p>
-                          <p className="font-mono text-[11.5px] text-[#5b4fe9]">{c.phone}</p>
+                          <p className="font-mono text-[11.5px] text-[#4e1d84]">{c.phone}</p>
                         </div>
                         <span className="shrink-0 rounded-full bg-[#f1f3f9] px-2.5 py-0.5 text-[10.5px] font-semibold text-[#64748b]">
                           {c.visits} visits
@@ -648,7 +648,7 @@ export default function POS() {
                   value={newGuestName}
                   onChange={(e) => setNewGuestName(e.target.value)}
                   placeholder="e.g. Karthik Sharma"
-                  className="h-10 w-full rounded-xl border border-[#e6eaf2] bg-[#f7f8fc] px-3 text-[13.5px] text-[#0f172a] outline-none focus:border-[#5b4fe9] focus:bg-white"
+                  className="h-10 w-full rounded-xl border border-[#e6eaf2] bg-[#f7f8fc] px-3 text-[13.5px] text-[#0f172a] outline-none focus:border-[#4e1d84] focus:bg-white"
                 />
               </label>
               <label className="block">
@@ -659,10 +659,10 @@ export default function POS() {
                   onChange={(e) => setNewGuestPhone(e.target.value)}
                   placeholder="e.g. +91 98450 12345"
                   inputMode="tel"
-                  className="h-10 w-full rounded-xl border border-[#e6eaf2] bg-[#f7f8fc] px-3 font-mono text-[13.5px] text-[#0f172a] outline-none focus:border-[#5b4fe9] focus:bg-white"
+                  className="h-10 w-full rounded-xl border border-[#e6eaf2] bg-[#f7f8fc] px-3 font-mono text-[13.5px] text-[#0f172a] outline-none focus:border-[#4e1d84] focus:bg-white"
                 />
               </label>
-              <Button type="submit" className="mt-2 w-full rounded-xl bg-[#5b4fe9] text-white hover:bg-[#4b3fd6]">
+              <Button type="submit" className="mt-2 w-full rounded-xl bg-[#4e1d84] text-white hover:bg-[#3d116d]">
                 Save &amp; Attach Customer
               </Button>
             </form>
@@ -773,7 +773,7 @@ function PaySheet({
                 className={cn(
                   "flex items-center gap-3 rounded-xl border px-4 py-3 text-[14px] font-semibold transition",
                   method === k
-                    ? "border-[#5b4fe9] bg-[#5b4fe9] text-white"
+                    ? "border-[#4e1d84] bg-[#4e1d84] text-white"
                     : "border-[#e6eaf2] bg-white text-[#334155] hover:border-[#cbd5e1]",
                 )}
               >
@@ -790,14 +790,14 @@ function PaySheet({
                 </div>
                 <p className="mt-4 text-[28px] font-extrabold text-[#0f172a] tnum">{inr(total)}</p>
                 <p className="mt-1 text-[13px] text-[#64748b]">Guest scans with any UPI app · {tenantSlug}@razorpay</p>
-                <p className="mt-4 flex items-center gap-2 text-[12.5px] font-semibold text-[#5b4fe9]">
-                  <span className="size-2 animate-pulse rounded-full bg-[#5b4fe9]" /> Waiting for payment confirmation…
+                <p className="mt-4 flex items-center gap-2 text-[12.5px] font-semibold text-[#4e1d84]">
+                  <span className="size-2 animate-pulse rounded-full bg-[#4e1d84]" /> Waiting for payment confirmation…
                 </p>
               </div>
             )}
             {method === "card" && (
               <div className="grid place-items-center py-8 text-center">
-                <CreditCard className="size-10 text-[#5b4fe9]" />
+                <CreditCard className="size-10 text-[#4e1d84]" />
                 <p className="mt-4 text-[28px] font-extrabold text-[#0f172a] tnum">{inr(total)}</p>
                 <p className="mt-1 text-[13px] text-[#64748b]">Sent to card terminal · Pine Labs Plutus #2</p>
               </div>
@@ -855,7 +855,7 @@ function PaySheet({
             )}
             <Button
               size="lg"
-              className="mt-6 w-full rounded-xl bg-[#5b4fe9] text-white hover:bg-[#4b3fd6]"
+              className="mt-6 w-full rounded-xl bg-[#4e1d84] text-white hover:bg-[#3d116d]"
               disabled={method === "cash" && t < total}
               onClick={complete}
             >
@@ -882,7 +882,7 @@ function PaySheet({
               <Button variant="outline" className="rounded-xl" onClick={() => toast.success("Sent on WhatsApp")}>
                 <Smartphone className="size-4" /> WhatsApp
               </Button>
-              <Button className="rounded-xl bg-[#5b4fe9] text-white hover:bg-[#4b3fd6]" onClick={close}>
+              <Button className="rounded-xl bg-[#4e1d84] text-white hover:bg-[#3d116d]" onClick={close}>
                 <X className="size-4" /> New Order
               </Button>
             </div>

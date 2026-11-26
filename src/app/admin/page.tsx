@@ -33,7 +33,7 @@ export default function Dashboard() {
     <>
       <div className="mb-6 flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
         <div>
-          <p className="eyebrow flex flex-wrap items-center gap-2 text-[#5b4fe9]">
+          <p className="eyebrow flex flex-wrap items-center gap-2 text-[#4e1d84]">
             <span className="size-2 rounded-full bg-[#10b981]" />
             Demo Restaurant · Indiranagar, Bengaluru · Dinner Service
           </p>
@@ -54,7 +54,7 @@ export default function Dashboard() {
             <Download className="size-4" /> Export
           </Button>
           <Link href="/pos">
-            <Button className="rounded-xl bg-[#5b4fe9] text-white shadow-[0_8px_20px_-6px_rgba(91,79,233,0.65)] hover:bg-[#4b3fd6]">
+            <Button className="rounded-xl bg-[#4e1d84] text-white shadow-[0_8px_20px_-6px_rgba(78,29,132,0.65)] hover:bg-[#3d116d]">
               <Plus className="size-4" /> New Order
             </Button>
           </Link>
@@ -103,7 +103,7 @@ export default function Dashboard() {
           { k: "Pending KOTs", v: pending, note: "in kitchen now", tone: "text-[#f59e0b]" },
           { k: "Completed", v: completed, note: "served or closed", tone: "text-[#10b981]" },
           { k: "Cancelled", v: cancelled, note: "1 refund pending", tone: "text-[#ef4444]" },
-          { k: "Active Tables", v: `${occupied}/${tables.length}`, note: "3 cleaning", tone: "text-[#5b4fe9]" },
+          { k: "Active Tables", v: `${occupied}/${tables.length}`, note: "3 cleaning", tone: "text-[#4e1d84]" },
           { k: "Reservations", v: "18", note: "tonight · 74 covers", tone: "text-[#0f172a]" },
         ].map((s, i) => (
           <div
@@ -145,7 +145,7 @@ export default function Dashboard() {
             <>
               <div className="mb-2 flex flex-wrap gap-4 text-[12px] text-[#64748b]">
                 <span className="flex items-center gap-1.5">
-                  <span className="h-0.5 w-4 rounded bg-[#5b4fe9]" /> Today · {inr(286420)}
+                  <span className="h-0.5 w-4 rounded bg-[#4e1d84]" /> Today · {inr(286420)}
                 </span>
                 <span className="flex items-center gap-1.5">
                   <span className="h-0.5 w-4 border-t-2 border-dashed border-[#94a3b8]" /> Last Thursday · {inr(249180)}
@@ -160,13 +160,13 @@ export default function Dashboard() {
                 x="h"
                 series={[
                   { key: "lastWeek", name: "Last Thu", color: "#94a3b8", dashed: true },
-                  { key: "today", name: "Today", color: "#5b4fe9" },
+                  { key: "today", name: "Today", color: "#4e1d84" },
                 ]}
               />
             </>
           )}
           {range === "30d" && (
-            <RevenueArea data={daily30} x="date" series={[{ key: "revenue", name: "Revenue", color: "#5b4fe9" }]} />
+            <RevenueArea data={daily30} x="date" series={[{ key: "revenue", name: "Revenue", color: "#4e1d84" }]} />
           )}
           {range === "12m" && (
             <Bars data={monthly} x="m" y="revenue" name="Revenue" highlightLast height={260} />
@@ -187,7 +187,7 @@ export default function Dashboard() {
           title="Top Dishes · Demo Restaurant"
           subtitle="Units this month"
           actions={
-            <Link href="/admin/menu" className="text-[12.5px] font-semibold text-[#5b4fe9] hover:underline">
+            <Link href="/admin/menu" className="text-[12.5px] font-semibold text-[#4e1d84] hover:underline">
               Edit menu →
             </Link>
           }
@@ -243,7 +243,7 @@ export default function Dashboard() {
           className="xl:col-span-6"
           title="Recent Transactions"
           actions={
-            <Link href="/admin/payments" className="text-[12.5px] font-semibold text-[#5b4fe9] hover:underline">
+            <Link href="/admin/payments" className="text-[12.5px] font-semibold text-[#4e1d84] hover:underline">
               All →
             </Link>
           }
@@ -294,7 +294,7 @@ function LiveOrders() {
       }
       subtitle="Demo Restaurant · All channels"
       actions={
-        <Link href="/admin/orders" className="inline-flex items-center gap-1 text-[12.5px] font-semibold text-[#5b4fe9] hover:underline">
+        <Link href="/admin/orders" className="inline-flex items-center gap-1 text-[12.5px] font-semibold text-[#4e1d84] hover:underline">
           Order board <ArrowUpRight className="size-3.5" />
         </Link>
       }
@@ -306,7 +306,7 @@ function LiveOrders() {
             <motion.li
               key={o.id}
               layout
-              initial={{ opacity: 0, backgroundColor: "#f1f0ff" }}
+              initial={{ opacity: 0, backgroundColor: "#f3e8ff" }}
               animate={{ opacity: 1, backgroundColor: "rgba(255,255,255,0)" }}
               transition={{ duration: 1.2 }}
               className="flex items-center gap-3 px-4 py-3 sm:px-5"

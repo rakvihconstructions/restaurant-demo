@@ -30,7 +30,7 @@ export default function AdminLayout({ children }: { children: ReactNode }) {
     return (
       <div className="admin-theme grid min-h-dvh place-items-center bg-[#f7f8fc] text-[#64748b]">
         <div className="flex items-center gap-2.5 text-[13.5px] font-medium">
-          <span className="size-2.5 animate-pulse rounded-full bg-[#5b4fe9]" />
+          <span className="size-2.5 animate-pulse rounded-full bg-[#4e1d84]" />
           Loading Admin Console…
         </div>
       </div>
