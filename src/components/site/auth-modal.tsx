@@ -46,7 +46,7 @@ export function AuthModal() {
           className="site fixed inset-0 z-[90] flex items-end justify-center !bg-transparent sm:items-center sm:p-6"
           role="dialog"
           aria-modal="true"
-          aria-label="Sign in to Neela"
+          aria-label="Sign in to Demo Restaurant"
         >
           <motion.div
             className="absolute inset-0 bg-[#0b111e]/70 backdrop-blur-xs"
@@ -133,7 +133,7 @@ function Body({ initialMode, onDone }: { initialMode: "signin" | "register"; rea
   const [name, setName] = useState("Ritika Kapoor");
   const [phone, setPhone] = useState("98110 22334");
   const [email, setEmail] = useState("ritika@mail.com");
-  const [password, setPassword] = useState("neela-demo");
+  const [password, setPassword] = useState("demo-demo");
   const [code, setCode] = useState(["", "", "", ""]);
   const [agree, setAgree] = useState(true);
   const [err, setErr] = useState("");
@@ -159,7 +159,7 @@ function Body({ initialMode, onDone }: { initialMode: "signin" | "register"; rea
     setStage("done");
     setTimeout(() => {
       onDone();
-      toast.success(mode === "register" ? `Welcome to Neela, ${u.name.split(" ")[0]}` : `Welcome back, ${u.name.split(" ")[0]}`, {
+      toast.success(mode === "register" ? `Welcome to Demo Restaurant, ${u.name.split(" ")[0]}` : `Welcome back, ${u.name.split(" ")[0]}`, {
         description: mode === "register" ? "250 welcome points added" : `${u.points.toLocaleString("en-IN")} points in your account`,
       });
       takePending()?.();
@@ -417,7 +417,7 @@ function Body({ initialMode, onDone }: { initialMode: "signin" | "register"; rea
       </SignButton>
 
       <p className="mt-5 text-center text-[13.5px] text-[#5c564d]">
-        {mode === "signin" ? "New to Neela? " : "Already have an account? "}
+        {mode === "signin" ? "New to Demo Restaurant? " : "Already have an account? "}
         <button
           type="button"
           className="font-bold text-[#0b111e] underline decoration-[#d9a03e] underline-offset-4"

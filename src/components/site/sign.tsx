@@ -43,11 +43,11 @@ export function SignLink({
   );
 }
 
-/** The Neela wordmark — architectural Manrope with gold accent dot. */
+/** The restaurant wordmark. */
 export function Wordmark({ className }: { className?: string }) {
   return (
     <span className={cn("font-sign inline-flex items-baseline leading-none tracking-[-0.045em]", className)}>
-      Neela<span className="text-[#d9a03e]">.</span>
+      Demo<span className="text-[#d9a03e]">.</span>
     </span>
   );
 }

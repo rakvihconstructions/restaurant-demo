@@ -1,7 +1,7 @@
 import { cn } from "@/lib/utils";
 
 /** Restaurant wordmark. */
-export function NeelaMark({ className, light }: { className?: string; light?: boolean }) {
+export function RestaurantMark({ className, light }: { className?: string; light?: boolean }) {
   return (
     <span className={cn("inline-flex items-baseline gap-1.5 select-none", light ? "text-paper" : "text-ink", className)}>
       <span className="font-display text-[1.25em] font-extrabold leading-none tracking-tight">

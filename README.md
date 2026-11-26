@@ -1,4 +1,4 @@
-# Neela × Mise — Restaurant Management & POS (demo)
+# Demo Restaurant × Mise — Restaurant Management & POS (demo)
 
 A front-end demo of the full scope in `restaurant_pos_complete_admin_panel_blueprint.pdf`.
 There is no database; every screen runs on mock data in `src/lib/`. Orders placed on the
@@ -20,7 +20,7 @@ npm run build && npm start   # production
 
 | URL | What it is |
 | --- | --- |
-| `/` | Restaurant website (Neela) — homepage |
+| `/` | Restaurant website (Demo Restaurant) — homepage |
 | `/menu` | Online ordering: menu, customisation, cart, checkout (sign-in required), coupon `TIDE15` |
 | `/rooms` · `/story` · `/visit` | Rooms & private dining · The kitchen · Find us |
 | `/reserve` · `/track` · `/account` | Table booking (sign-in required) · delivery tracking · guest account |

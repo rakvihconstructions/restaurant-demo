@@ -98,7 +98,7 @@ export default function StoryPage() {
               </h2>
             </div>
             <p className="max-w-sm text-[15px] text-white/65">
-              Six of the forty-one people who make Neela run, from the clay pots to the bar.
+              Six of the forty-one people who make Demo Restaurant run, from the clay pots to the bar.
             </p>
           </div>
 

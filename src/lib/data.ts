@@ -636,7 +636,7 @@ export const plans = [
 ];
 
 export const tenants = [
-  { id: "TN-0142", name: "Neela Hospitality", city: "Bengaluru", plan: "Estate", branches: 4, status: "active", mrr: 9999, gmv: 7690000, since: "Jan 2024", owner: "Ananya Rao", health: 96 },
+  { id: "TN-0142", name: "Demo Restaurant", city: "Bengaluru", plan: "Estate", branches: 4, status: "active", mrr: 9999, gmv: 7690000, since: "Jan 2024", owner: "Ananya Rao", health: 96 },
   { id: "TN-0188", name: "Biryani Barons", city: "Hyderabad", plan: "Growth", branches: 3, status: "active", mrr: 3999, gmv: 4120000, since: "Mar 2024", owner: "Syed Arif", health: 88 },
   { id: "TN-0203", name: "Café Kolkata Club", city: "Kolkata", plan: "Starter", branches: 1, status: "trial", mrr: 0, gmv: 380000, since: "Nov 2026", owner: "Debjani Roy", health: 72 },
   { id: "TN-0211", name: "The Idli Project", city: "Chennai", plan: "Growth", branches: 2, status: "active", mrr: 3999, gmv: 1890000, since: "May 2024", owner: "Hari Prasad", health: 91 },

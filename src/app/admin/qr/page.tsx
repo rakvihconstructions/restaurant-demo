@@ -1,12 +1,12 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useSyncExternalStore } from "react";
 import { QRCodeSVG } from "qrcode.react";
 import { Download, ExternalLink, Printer } from "lucide-react";
 import { toast } from "sonner";
 import { PageHeader, Panel } from "@/components/admin/kit";
-import { NeelaMark } from "@/components/brand";
+import { RestaurantMark } from "@/components/brand";
 import { Button, Field, Input, Segmented, Switch } from "@/components/ui";
 import { tables } from "@/lib/data";
 import {
@@ -19,8 +19,12 @@ import { cn } from "@/lib/utils";
 const themes = {
   ink: { bg: "#15140f", fg: "#f4efe6", accent: "#d4952a", label: "Ink" },
   paper: { bg: "#f4efe6", fg: "#15140f", accent: "#b23a26", label: "Paper" },
-  neela: { bg: "#4e1d84", fg: "#ffffff", accent: "#f5a623", label: "Purple" },
+  purple: { bg: "#4e1d84", fg: "#ffffff", accent: "#f5a623", label: "Purple" },
 };
+
+const subscribeToLocation = () => () => {};
+const getLocationOrigin = () => window.location.origin;
+const getServerLocationOrigin = () => "";
 
 export default function QrPage() {
   const [enabled, setEnabled] = useState(true);
@@ -31,6 +35,7 @@ export default function QrPage() {
   const [headline, setHeadline] = useState("Order at your own pace.");
   const [selected, setSelected] = useState("07");
   const [printAll, setPrintAll] = useState(false);
+  const qrOrigin = useSyncExternalStore(subscribeToLocation, getLocationOrigin, getServerLocationOrigin);
   const th = themes[theme];
 
   useEffect(() => {
@@ -45,6 +50,7 @@ export default function QrPage() {
     if (!svg) throw new Error(`The QR code for table ${label} is not available.`);
     return svgToPngDataUrl(svg);
   };
+  const tableQrUrl = (label: string) => `${qrOrigin}/t/${label}`;
 
   const printAllLabels = () => {
     setPrintAll(true);
@@ -130,7 +136,7 @@ export default function QrPage() {
                   data-qr-table={t.label}
                   className={cn("flex flex-col items-center gap-2 rounded-xl border p-3 transition", selected === t.label ? "border-ink bg-paper-2/60" : "border-line-2 hover:border-ink-3", !enabled && "opacity-40")}
                 >
-                  <QRCodeSVG value={`https://neela.kitchen/t/${t.label}`} size={64} bgColor="transparent" fgColor="#15140f" level="M" />
+                  <QRCodeSVG value={tableQrUrl(t.label)} size={64} bgColor="transparent" fgColor="#15140f" level="M" />
                   <span className="font-mono text-[11.5px]">T-{t.label}</span>
                 </button>
               ))}
@@ -140,13 +146,13 @@ export default function QrPage() {
           <div className="order-1 flex flex-col items-center gap-3 sm:order-2">
             <div className="w-[260px] rounded-[22px] p-6 shadow-[0_30px_60px_-30px_rgba(21,20,15,.5)] transition-colors duration-500" style={{ background: th.bg, color: th.fg }}>
               <div className="flex items-center justify-between">
-                <NeelaMark light={theme !== "paper"} className="text-[13px]" />
+                <RestaurantMark light={theme !== "paper"} className="text-[13px]" />
                 <span className="font-mono text-[10px] uppercase tracking-[0.2em] opacity-60">Table</span>
               </div>
               <p className="mt-6 font-display text-[64px] leading-none" style={{ color: th.accent }}>{selected}</p>
               <p className="mt-2 font-display text-[19px] italic leading-tight">{headline}</p>
               <div className="mt-6 rounded-xl bg-white p-3">
-                <QRCodeSVG value={`https://neela.kitchen/t/${selected}`} size={188} level="H" fgColor="#15140f" style={{ width: "100%", height: "auto" }} />
+                <QRCodeSVG value={tableQrUrl(selected)} size={188} level="H" fgColor="#15140f" style={{ width: "100%", height: "auto" }} />
               </div>
               <p className="mt-4 text-center font-mono text-[10px] uppercase tracking-[0.18em] opacity-60">Scan · order · pay</p>
             </div>
@@ -161,12 +167,12 @@ export default function QrPage() {
               {tables.slice(page * 6, page * 6 + 6).map((table) => (
                 <article className="qr-print-label" key={table.id} style={{ backgroundColor: th.bg, color: th.fg }}>
                   <div className="flex items-center justify-between">
-                    <span className="font-bold tracking-widest">NEELA</span>
+                    <span className="font-bold tracking-widest">DEMO</span>
                     <span className="font-mono text-[8pt] uppercase tracking-widest">Table</span>
                   </div>
                   <p className="mt-4 font-display text-[36pt] leading-none" style={{ color: th.accent }}>{table.label}</p>
                   <div className="mt-3 bg-white p-2">
-                    <QRCodeSVG value={`https://neela.kitchen/t/${table.label}`} size={180} level="H" fgColor="#15140f" style={{ display: "block", width: "100%", height: "auto" }} />
+                    <QRCodeSVG value={tableQrUrl(table.label)} size={180} level="H" fgColor="#15140f" style={{ display: "block", width: "100%", height: "auto" }} />
                   </div>
                   <p className="mt-3 text-center font-mono text-[7pt] uppercase tracking-widest">Scan · order · pay</p>
                 </article>

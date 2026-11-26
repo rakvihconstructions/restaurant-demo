@@ -246,7 +246,7 @@ function drawQrCard(doc: jsPDF, label: string, png: string, theme: QrLabelTheme,
   doc.setTextColor(theme.fg);
   doc.setFont("helvetica", "bold");
   doc.setFontSize(12);
-  doc.text("NEELA", x + 5, y + 9);
+  doc.text("DEMO", x + 5, y + 9);
   doc.setFont("helvetica", "normal");
   doc.setFontSize(7);
   doc.text("TABLE", x + 55, y + 9, { align: "right" });
